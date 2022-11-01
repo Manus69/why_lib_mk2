@@ -11,7 +11,8 @@ Array*  ArrayCreateSize(size_t length, size_t element_size);
 void    ArrayDestroy(Array* array);
 void*   ArrayGetData(const Array* array);
 size_t  ArrayGetLength(const Array* array);
-int     ArrayExpand(const Array* array, size_t extra_length);
+int     ArrayExpandRight(Array* array, size_t extra_length);
+int     ArrayExpandLeft(Array* array, size_t extra_length);
 
 #define ArrayCreate(type, length) ArrayCreateSize(length, sizeof(type))
 
@@ -25,12 +26,18 @@ int     ArrayExpand(const Array* array, size_t extra_length);
 #define ArraySwap(array, type, lhs_index, rhs_index) \
         SWAP(ArrayGetData(array), type, lhs_index, rhs_index)
 
+#define ArrayApplySlice(array, type, function, index, length) \
+{ \
+        type*  _data = ArrayGetData(array); \
+        size_t _length = length; \
+        size_t _index = index; \
+        for (size_t n = _index; n < _length; n ++) \
+                function(_data[n]); \
+}
+
 #define ArrayApply(array, type, function) \
-        { \
-            type* _data = ArrayGetData(array); \
-            for (size_t index = 0; index < ArrayGetLength(array); index ++) \
-                function(_data[index]); \
-        }
+        ArrayApplySlice(array, type, function, 0, ArrayGetLength(array))
+
 #define ArrayDestroyElements(array, type, function) ArrayApply(array, type, function)
 
 #endif
