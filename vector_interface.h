@@ -2,6 +2,7 @@
 #define VECTOR_INTERFACE_H
 
 #include "array_interface.h"
+#include "vector.h"
 
 #include <stdlib.h>
 
@@ -10,10 +11,6 @@ typedef struct Vector Vector;
 #define _V_SIZE_DEFAULT (1 << 10)
 
 Vector* _vector_create(size_t capacity, size_t element_size);
-Array*  _vector_get_array(const Vector* vector);
-size_t  _vector_get_index(const Vector* vector);
-size_t  _vector_map_index(const Vector* vector, size_t index);
-void    _vector_increment_length(Vector* vector, size_t increment);
 
 void    VectorDestroy(Vector* vector);
 size_t  VectorGetLength(const Vector* vector);
@@ -22,27 +19,42 @@ size_t  VectorGetRightCapacity(const Vector* vector);
 int     VectorExpandRight(Vector* vector, size_t extra_capacity);
 int     VectorExpandLeft(Vector* vector, size_t extra_capacity);
 
-#define VectorCreateWithCapacity(type, capacity) _vector_create(capacity, sizeof(type))
+#define VectorCreateWithCapacity(_type, _capacity) _vector_create(_capacity, sizeof(_type))
 
-#define VectorCreate(type) VectorCreateWithCapacity(type, _V_SIZE_DEFAULT)
+#define VectorCreate(_type) VectorCreateWithCapacity(_type, _V_SIZE_DEFAULT)
 
-#define VectorGet(vector, type, index) \
-        ArrayGet(_vector_get_array(vector), type, _vector_map_index(vector, index))
+#define VectorGet(_vector, _type, _index) \
+        ArrayGet(_vector->array, _type, ((_vector->index) + _index))
 
-#define VectorSet(vector, type, index, value) \
-        ArraySet(_vector_get_array(vector), type, _vector_map_index(vector, index), value)
+#define VectorSet(_vector, _type, _index, _value) \
+        ArraySet(_vector->array, _type, _vector->index + _index, _value)
 
-#define VectorPushBack(vector, type, value) \
-        { \
-            if (VectorGetRightCapacity(vector) || \
-            (VectorExpandRight(vector, 2 * (VectorGetLength(vector)))) == OK) \
-            { \
-                VectorSet(vector, type, _vector_get_index(vector) + VectorGetLength(vector), value); \
-                _vector_increment_length(vector, 1); \
-            } \
-        } \
+#define VectorPushBack(_vector, _type, _value) \
+{ \
+    if (VectorGetRightCapacity(_vector) || \
+    (VectorExpandRight(_vector, 2 * (_vector->length))) == OK) \
+    { \
+        VectorSet(_vector, _type, _vector->index + _vector->length, _value); \
+        _vector->length ++; \
+    } \
+}
 
-#define VectorApply(vector, type, function) \
-        ArrayApplySlice(_vector_get_array(vector), type, function, _vector_get_index(vector), VectorGetLength(vector))
+#define VectorPushFront(_vector, _type, _value) \
+{ \
+    if (VectorGetLeftCapacity(_vector) || \
+    (VectorExpandLeft(_vector, 2 * (VectorGetLeftCapacity(_vector)))) == OK) \
+    { \
+        ArraySet(_vector->array, _type, _vector->index, _value); \
+        _vector->index --; \
+        _vector->length ++; \
+    } \
+}
+
+#define VectorApply(_vector, _type, _function) \
+        ArrayApplySlice(_vector->array, _type, _function, _vector->index, _vector->length)
+
+#define VectorFront(_vector, _type) VectorGet(_vector, _type, 0)
+
+#define VectorBack(_vector, _type) VectorGet(_vector, _type, _vector->length - 1)
 
 #endif

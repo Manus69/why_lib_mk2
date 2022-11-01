@@ -2,19 +2,14 @@
 #include "vector_interface.h"
 #include "array_interface.h"
 
-size_t _vector_get_index(const Vector* vector)
+size_t _vector_right_insert(const Vector* vector)
 {
-    return vector->index;
+    return vector->index + vector->length;
 }
 
-size_t _vector_map_index(const Vector* vector, size_t index)
+size_t _vector_left_insert(const Vector* vector)
 {
-    return index + vector->index;
-}
-
-void    _vector_increment_length(Vector* vector, size_t increment)
-{
-    vector->length += increment;
+    return vector->index - 1;
 }
 
 Vector* _vector_create(size_t capacity, size_t element_size)
@@ -48,11 +43,6 @@ void    VectorDestroy(Vector* vector)
     }
 }
 
-Array*  _vector_get_array(const Vector* vector)
-{
-    return vector->array;
-}
-
 size_t  VectorGetLength(const Vector* vector)
 {
     return vector->length;
@@ -65,21 +55,21 @@ size_t  VectorGetRightCapacity(const Vector* vector)
 
 size_t VectorGetLeftCapacity(const Vector* vector)
 {
-    return vector->index + 1;
+    return vector->index;
 }
 
 int VectorExpandRight(Vector* vector, size_t extra_capacity)
 {
     extra_capacity = extra_capacity ? extra_capacity : 1;
 
-    return ArrayExpandRight(_vector_get_array(vector), extra_capacity);
+    return ArrayExpandRight(vector->array, extra_capacity);
 }
 
 int VectorExpandLeft(Vector* vector, size_t extra_capacity)
 {
     extra_capacity = extra_capacity ? extra_capacity : 1;
     
-    if (ArrayExpandLeft(_vector_get_array(vector), extra_capacity) != OK)
+    if (ArrayExpandLeft(vector->array, extra_capacity) != OK)
         return NOT_OK;
     
     vector->index += extra_capacity;

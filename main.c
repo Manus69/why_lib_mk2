@@ -9,7 +9,7 @@ struct test
     char* str;
 };
 
-#define SIZE 100000000
+#define SIZE (1 << 27)
 
 void _print_int(int n)
 {
@@ -22,20 +22,31 @@ void _print_str(const char* str)
         printf("%s\n", str);
 }
 
+int add(int a, int b)
+{
+    return a + b;
+}
+
+void vector_test()
+{
+    Vector* v = VectorCreate(int);
+
+    for (int n = 1; n < SIZE; n ++)
+        VectorPushBack(v, int, n);
+
+    // _print_int(VectorGet(v, int, 1));
+    _print_int(VectorFront(v, int));
+    _print_int(VectorBack(v, int));
+
+    VectorDestroy(v);
+}
+
 int main()
 {
-    Vector* vector;
+    vector_test();
 
-    vector = VectorCreate(int);
+    // char* str = StrConcat("ass", "cock", NULL);
 
-    for (int n = 0; n < SIZE; n ++)
-    {
-        VectorPushBack(vector, int, n);
-        // _print_int(VectorGetLength(vector));
-    }
-
-    _print_int(VectorGet(vector, int, SIZE - 1));
-    
-    // VectorApply(vector, int, _print_int);
-    VectorDestroy(vector);
+    // _print_str(str);
+    // free(str);
 }
