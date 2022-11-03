@@ -1,31 +1,32 @@
 #include "array.h"
-#include "array_interface.h"
 
 #include <string.h>
 
-Array*  ArrayCreateSize(size_t length, size_t element_size)
+void ArrayInit(Array* array, void* data, size_t length, size_t element_size)
 {
-    Array* array;
+    array->data = data;
+    array->length = length;
+    array->element_size = element_size;
+}
 
-    CHECK_RETURN(length, 0, NULL);
+Array* ArrayCreate(size_t length, size_t element_size)
+{
+    Array*  array;
+    void*   data;
+
     array = malloc(sizeof(*array));
     CHECK_RETURN(array, NULL, NULL);
 
-    if ((array->data = malloc(length * element_size)))
-    {
-        memset(array->data, 0, length * element_size);
-        array->length = length;
-        array->element_size = element_size;
+    data = malloc(length * element_size);
+    if (!data) RETURN_AFTER(free(array), NULL);
+    // memset(data, 0, length * element_size);
 
-        return array;
-    }
+    ArrayInit(array, data, length, element_size);
 
-    free(array);
-
-    return NULL;
+    return array;
 }
 
-void    ArrayDestroy(Array* array)
+void ArrayDestroy(Array* array)
 {
     if (array)
     {
@@ -34,63 +35,20 @@ void    ArrayDestroy(Array* array)
     }
 }
 
-void*   ArrayGetData(const Array* array)
-{
-    return array->data;
-}
-
-size_t  ArrayGetLength(const Array* array)
+size_t ArrayLength(const Array* array)
 {
     return array->length;
 }
 
-// static void _right_memset(void* data, const Array* array, size_t extra_length)
-// {
-//     memset(data + (array->length * array->element_size), 0, extra_length * array->element_size);
-//     memcpy(data, array->data, array->length * array->element_size);
-// }
-
-static void _left_memset(void* data, const Array* array, size_t extra_length)
+int ArrayExpandRight(Array* array, size_t n_elements)
 {
-    memset(data, 0, extra_length * array->element_size);
-    memcpy(data + (extra_length * array->element_size), array->data, array->length * array->element_size);
-}
+    void* new_data;
 
-static int _expand(Array* array, size_t extra_length, void (*_memset)(void *, const Array *, size_t))
-{
-    void*   data;
-    size_t  size;
+    new_data = realloc(array->data, (array->length + n_elements) * array->element_size);
+    CHECK_RETURN(new_data, NULL, NOT_OK);
 
-    CHECK_RETURN(extra_length, 0, OK);
-
-    size = (array->length + extra_length) * array->element_size;
-    data = malloc(size);
-    CHECK_RETURN(data, NULL, NOT_OK);
-
-    _memset(data, array, extra_length);
-
-    free(array->data);
-    array->data = data;
-    array->length += extra_length;
+    array->data = new_data;
+    array->length += n_elements;
 
     return OK;
-}
-
-int     ArrayExpandRight(Array* array, size_t extra_length)
-{
-    void* data;
-
-    data = realloc(array->data,  (array->length + extra_length) * array->element_size);
-    CHECK_RETURN(data, NULL, NOT_OK);
-    memset(data + array->length * array->element_size, 0, extra_length * array->element_size);
-
-    array->data = data;
-    array->length += extra_length;
-
-    return OK;
-}
-
-int     ArrayExpandLeft(Array* array, size_t extra_length)
-{
-    return _expand(array, extra_length, _left_memset);
 }

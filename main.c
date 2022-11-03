@@ -1,52 +1,26 @@
-#include <stdio.h>
+// #include "array.h"
+#include "vector.h"
+
 #include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 
-#include "why.h"
-
-struct test
-{
-    char* str;
-};
-
+GetVectorDefinitions(int, INT);
 #define SIZE (1 << 27)
-
-void _print_int(int n)
-{
-    printf("%d\n", n);
-}
-
-void _print_str(const char* str)
-{
-    if (str)
-        printf("%s\n", str);
-}
-
-int add(int a, int b)
-{
-    return a + b;
-}
-
-void vector_test()
-{
-    Vector* v = VectorCreate(int);
-
-    for (int n = 1; n < SIZE; n ++)
-        VectorPushBack(v, int, n);
-
-    // _print_int(VectorGet(v, int, 1));
-    _print_int(VectorFront(v, int));
-    _print_int(VectorBack(v, int));
-
-    VectorDestroy(v);
-}
 
 int main()
 {
-    vector_test();
+    Vector* vector = VectorCreateINT();
 
-    // char* str = StrConcat("ass", "cock", NULL);
+    for (int n = 0; n < SIZE; n ++)
+    {
+        VectorPushBackINT(vector, n);
+    }
 
-    // _print_str(str);
-    // free(str);
+    // for (int n = 0; n < SIZE; n ++)
+    // {
+    //     printf("%d ", VectorGetINT(vector, n));
+    // } 
+    printf("%d\n", VectorBackINT(vector));
+
+    VectorDestroy(vector);
 }
