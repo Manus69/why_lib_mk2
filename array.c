@@ -52,3 +52,9 @@ int ArrayExpandRight(Array* array, size_t n_elements)
 
     return OK;
 }
+
+void* ArrayGetPtr(const Array* array, size_t index)
+{
+    return array->data + index * array->element_size;
+}
+

@@ -19,6 +19,14 @@ Array*  ArrayCreate(size_t length, size_t element_size);
 void    ArrayDestroy(Array* array);
 size_t  ArrayLength(const Array* array);
 int     ArrayExpandRight(Array* array, size_t n_elements);
+void*   ArrayGetPtr(const Array* array, size_t index);
+#define ArraySet(array, type, index, value) \
+    SET(array->data, type, index, value)
+
+#define GetArrayDeclarations(type, name) \
+type    ArrayGet##name(const Array* array, size_t index); \
+void    ArraySet##name(Array* array, size_t index, type value); \
+Array*  ArrayCreate##name(size_t length);\
 
 #define GetArrayDefinitions(type, name) \
 type ArrayGet##name(const Array* array, size_t index)\

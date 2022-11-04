@@ -14,11 +14,12 @@ struct Vector
     size_t length;
 };
 
-Vector* VectorCreate(size_t element_size);
-void VectorDestroy(Vector* vector);
-size_t VectorRightCapacity(const Vector* vector);
-int VectorExpandRight(Vector* vector, size_t n_elements);
-size_t VectorLength(const Vector* vector);
+Vector*     VectorCreate(size_t element_size);
+void        VectorDestroy(Vector* vector);
+size_t      VectorRightCapacity(const Vector* vector);
+int         VectorExpandRight(Vector* vector, size_t n_elements);
+size_t      VectorLength(const Vector* vector);
+void*       VectorGetPtr(const Vector* vector, size_t index);
 
 #define GetVectorDefinitions(type, name) \
 GetArrayDefinitions(type, name) \

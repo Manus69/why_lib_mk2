@@ -31,6 +31,10 @@ size_t VectorLength(const Vector* vector)
 {
     return vector->length;
 }
+void* VectorGetPtr(const Vector* vector, size_t index)
+{
+    return ArrayGetPtr(vector->array, index + vector->left_index);
+}
 
 size_t VectorRightCapacity(const Vector* vector)
 {
