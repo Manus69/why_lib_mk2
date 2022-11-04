@@ -5,20 +5,20 @@
 
 void _print(int* data, size_t length);
 
-void _merge(int* target, int* lhs, \
-        int* rhs, long lhs_length, long rhs_length, int (*cmp)(int, int))
+void _merge(int* target, const int* lhs, \
+        const int* rhs, long lhs_length, long rhs_length, int (*cmp)(int, int))
 {
     if (lhs_length < 0 && rhs_length < 0)
         return ;
     
     while (1)
     {
-        if (lhs_length <= 0)
+        if (lhs_length == 0)
         {
             memcpy(target, rhs, rhs_length * sizeof(int));
             return ;
         }
-        if (rhs_length <= 0)
+        if (rhs_length == 0)
         {
             memcpy(target, lhs, lhs_length * sizeof(int));
             return ;
@@ -46,7 +46,7 @@ long _get_length(long length, long frame_size)
     return length >= frame_size ? frame_size : length;
 }
 
-void _pass(int* source, int* target, long frame_size, long length, int (*cmp)(int, int))
+void _pass(const int* source, int* target, long frame_size, long length, int (*cmp)(int, int))
 {
     int* rhs;
     int* lhs;
@@ -54,7 +54,7 @@ void _pass(int* source, int* target, long frame_size, long length, int (*cmp)(in
     long rhs_length;
     long remaining;
 
-    lhs = source;
+    lhs = (int *)source;
     remaining = length;
 
     while (remaining > 0)

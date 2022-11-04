@@ -9,6 +9,9 @@
 #define CHECK_RETURN(value, reference, return_value) \
         if (value == reference) return return_value;
 
+#define CHECK_CONDITION_RETURN(condition, return_value) \
+        if ((condition)) return return_value;
+
 #define RETURN_AFTER(action, return_value) \
 { \
     action; \
