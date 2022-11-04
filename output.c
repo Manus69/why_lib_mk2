@@ -4,17 +4,25 @@
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
+#include <stdbool.h>
+
+#define PERMS 0666
+#define APPEND O_CREAT | O_APPEND | O_RDWR
+#define TRUNCATE O_CREAT | O_TRUNC | O_RDWR
 
 void WriteToFile(int file, const char* string)
 {
     write(file, string, strlen(string));
 }
 
-void WriteToFileName(const char* name, const char* string)
+void WriteToFileName(const char* name, const char* string, bool truncate)
 {
     int file;
+    int mode;
 
-    file = open(name, O_APPEND);
+    mode = truncate ? TRUNCATE : APPEND;
+
+    file = open(name, mode, PERMS);
     if (file > 0)
     {
         return WriteToFile(file, string);
