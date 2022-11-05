@@ -4,9 +4,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
 
-static void _merge(TYPE* target, const TYPE* lhs,
-        const TYPE* rhs, size_t lhs_length, size_t rhs_length, int (*cmp)(TYPE, TYPE))
+static void _merge(TYPE* target,
+                TYPE* lhs,
+                TYPE* rhs,
+                size_t lhs_length, 
+                size_t rhs_length, 
+                int (*cmp)(const TYPE, const TYPE))
 {
     while (true)
     {
@@ -41,8 +46,11 @@ static size_t _get_length(size_t length, size_t frame_size)
     return length >= frame_size ? frame_size : length;
 }
 
-static void _pass(const TYPE* source, TYPE* target, 
-                size_t frame_size, size_t length, int (*cmp)(TYPE, TYPE))
+static void _pass(TYPE* source, 
+                TYPE* target, 
+                size_t frame_size, 
+                size_t length, 
+                int (*cmp)(const TYPE, const TYPE))
 {
     TYPE*   rhs;
     TYPE*   lhs;
@@ -50,7 +58,7 @@ static void _pass(const TYPE* source, TYPE* target,
     size_t  rhs_length;
     size_t  remaining;
 
-    lhs = (TYPE*)source;
+    lhs = source;
     remaining = length;
 
     while (remaining > 0)
@@ -69,7 +77,7 @@ static void _pass(const TYPE* source, TYPE* target,
     
 }
 
-void merge_sortTAG(TYPE* data, size_t index, size_t length, int (*cmp)(TYPE, TYPE))
+void MergeSortTAG(TYPE* data, size_t index, size_t length, int (*cmp)(const TYPE, const TYPE))
 {
     TYPE*   buffer;
     size_t  count;
@@ -100,7 +108,7 @@ void merge_sortTAG(TYPE* data, size_t index, size_t length, int (*cmp)(TYPE, TYP
     }
 
     if (n_iterations % 2)
-        memcpy(data + index, buffer, sizeof(int) * length);
+        memcpy(data + index, buffer, sizeof(TYPE) * length);
 
     free(buffer);
 }

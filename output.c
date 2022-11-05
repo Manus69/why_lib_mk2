@@ -12,7 +12,7 @@
 
 void WriteToFile(int file, const char* string)
 {
-    write(file, string, strlen(string));
+    return (void)write(file, string, strlen(string));
 }
 
 void WriteToFileName(const char* name, const char* string, bool truncate)

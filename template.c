@@ -8,11 +8,7 @@
 
 static char* _get_file_name(const char* name, const char* tag, const char* new_tag)
 {
-    char* new_name;
-
-    new_name = StringReplace(name, tag, new_tag);
-
-    return new_name;
+    return StringReplace(name, tag, new_tag);
 }
 
 static char* _process_file(const char* file_name, const char* base_type,
@@ -22,7 +18,7 @@ static char* _process_file(const char* file_name, const char* base_type,
     char* type_str;
     char* tag_str;
 
-    if (!file_name) return NULL;
+    CHECK_RETURN(file_name, NULL, NULL);
     
     content = ReadFileName(file_name);
     CHECK_RETURN(content, NULL, NULL);
@@ -43,11 +39,9 @@ static void _get_file(const char* name, const char* base_type,
     char* content;
 
     content = _process_file(name, base_type, new_type, base_tag, new_tag);
-    if (!content) return ;
+    CHECK_RETURN(content, NULL, (void)0);
 
-    printf("%s\n", content);
-    new_name = _get_file_name(name, base_tag, new_tag);
-    printf("%s\n", new_name);
+    new_name = _get_file_name(name, base_type, new_tag);
     WriteToFileName(new_name, content, true);
 
     free(content);
