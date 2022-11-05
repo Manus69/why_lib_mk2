@@ -31,8 +31,14 @@ void ArrayDestroyDataCHARPTR(ArrayCHARPTR* array)
     free(array->data);
 }
 
-void ArrayDestroyAllCHARPTR(ArrayCHARPTR* array)
+void ArrayDestroyElementsCHARPTR(ArrayCHARPTR* array, void (*f)(char*))
 {
+    ArrayMapCHARPTR(array, 0, array->length, f);
+}
+
+void ArrayDestroyAllCHARPTR(ArrayCHARPTR* array, void (*f)(char*))
+{
+    if (f) ArrayDestroyElementsCHARPTR(array, f);
     ArrayDestroyDataCHARPTR(array);
     ArrayDestroyCHARPTR(array);
 }

@@ -36,7 +36,7 @@ int add(int a, int b)
 
 void printstr(char* str)
 {
-    printf("%s\n", str);
+    printf("\"%s\"\n", str);
 }
 
 #include "vectorTAG_interface.h"
@@ -45,8 +45,14 @@ void printstr(char* str)
 int main()
 {
     // GenerateStructuresForType("char*", "CHARPTR");
+    //
+    // char* str = ReadFileName("text_file.txt");
+    // VectorCHARPTR* vector = StringSplit(str, "\n");
+    // VectorMapCHARPTR(vector, printstr);
+    // VectorDestroyAllCHARPTR(vector, (void (*)(char*))free);
+    // free(str);
 
-    VectorCHARPTR* vector = StringSplit("eat my ass", " ");
-    VectorMapCHARPTR(vector, printstr);
-    VectorDestroyAllCHARPTR(vector);
+    char* str = StringConcat("ass", "", "dick", NULL);
+    printstr(str);
+    free(str);
 }

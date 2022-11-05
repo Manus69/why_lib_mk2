@@ -32,10 +32,16 @@ void VectorDestroyCHARPTR(VectorCHARPTR* vector)
     free(vector);
 }
 
-void VectorDestroyAllCHARPTR(VectorCHARPTR* vector)
+void VectorDestroyAllCHARPTR(VectorCHARPTR* vector, void (*f)(char*))
 {
-    ArrayDestroyAllCHARPTR(vector->array);
+    if (f) VectorMapCHARPTR(vector, f);
+    ArrayDestroyAllCHARPTR(vector->array, NULL);
     free(vector);
+}
+
+void VectorDestroyElementsCHARPTR(VectorCHARPTR* vector, void (*f)(char*))
+{
+    ArrayDestroyElementsCHARPTR(vector->array, f);
 }
 
 static size_t _map_index(const VectorCHARPTR* vector, size_t index)

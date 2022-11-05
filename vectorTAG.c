@@ -34,7 +34,8 @@ void VectorDestroyTAG(VectorTAG* vector)
 
 void VectorDestroyAllTAG(VectorTAG* vector, void (*f)(TYPE))
 {
-    ArrayDestroyAllTAG(vector->array, f);
+    if (f) VectorMapTAG(vector, f);
+    ArrayDestroyAllTAG(vector->array, NULL);
     free(vector);
 }
 

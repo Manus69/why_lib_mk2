@@ -4,6 +4,7 @@
 #include "macros.h"
 
 #include <string.h>
+#include <stdarg.h>
 
 static void _replace(Buffer* buffer, const char* str, const char* what, const char* value)
 {
@@ -78,4 +79,31 @@ VectorCHARPTR* StringSplit(const char* string, const char* separator)
     }
     
     return vector;
+}
+
+#define STR_LENGTH (1 << 8)
+
+char* StringConcat(const char* str, ...)
+{
+    va_list args;
+    char*   current;
+    Buffer* buffer;
+
+    CHECK_RETURN(str, NULL, NULL);
+    buffer = BufferCreate(STR_LENGTH);
+    CHECK_RETURN(buffer, NULL, NULL);
+
+    BufferSet(buffer, str);
+    va_start(args, str);
+
+    while ((current = va_arg(args, char*)))
+    {
+        BufferSet(buffer, current);
+    }
+
+    current = BufferGetContent(buffer);
+    BufferDestroy(buffer);
+    va_end(args);
+
+    return current;
 }

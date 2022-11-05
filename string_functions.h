@@ -5,5 +5,6 @@
 
 char* StringReplace(const char* str, const char* what, const char* value);
 VectorCHARPTR* StringSplit(const char* string, const char* separator);
+char* StringConcat(const char* str, ...);
 
 #endif
