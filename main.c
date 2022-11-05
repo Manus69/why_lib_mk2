@@ -25,5 +25,9 @@ void MergeSortINT(int* data, size_t index, size_t length, int (*cmp)(int, int));
 //variadic free
 int main()
 {
-    GenerateTemplate("arrayTYPE.c", "TYPE", "char*", "TAG", "CHARPTR");
+    GenerateTemplate("arrayTAG.c", "TYPE", "char*", "TAG", "CHARPTR");
+    GenerateTemplate("arrayTAG.h", "TYPE", "char*", "TAG", "CHARPTR");
+    GenerateTemplate("arrayTAG_interface.h", "TYPE", "char*", "TAG", "CHARPTR");
+
+
 }

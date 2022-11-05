@@ -1,5 +1,5 @@
-#ifndef ARRAY_TYPE_H
-#define ARRAY_TYPE_H
+#ifndef ARRAY_TAG_H
+#define ARRAY_TAG_H
 
 #include "why.h"
 

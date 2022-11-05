@@ -41,7 +41,7 @@ static void _get_file(const char* name, const char* base_type,
     content = _process_file(name, base_type, new_type, base_tag, new_tag);
     CHECK_RETURN(content, NULL, (void)0);
 
-    new_name = _get_file_name(name, base_type, new_tag);
+    new_name = _get_file_name(name, base_tag, new_tag);
     WriteToFileName(new_name, content, true);
 
     free(content);
