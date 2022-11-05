@@ -9,6 +9,7 @@ struct VectorTAG
 {
     ArrayTAG*   array;
     size_t      index;
+    size_t      length;
 };
 
 #endif

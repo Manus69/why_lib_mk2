@@ -56,7 +56,7 @@ int ArrayExpandRightTAG(ArrayTAG* array, size_t extra_items)
 {
     TYPE* new_data;
 
-    new_data = realloc(array->data, array->length + extra_items);
+    new_data = realloc(array->data, (array->length + extra_items) * sizeof(TYPE));
     CHECK_RETURN(new_data, NULL, NOT_OK);
 
     array->data = new_data;
@@ -77,4 +77,17 @@ int ArrayExpandLeftTAG(ArrayTAG* array, size_t extra_items)
     array->length += extra_items;
 
     return OK;
+}
+
+void ArrayApplyTAG(const ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE))
+{
+    size_t last;
+
+    last = index + length;
+
+    while (index < last)
+    {
+        f(array->data[index]);
+        index ++;
+    }
 }
