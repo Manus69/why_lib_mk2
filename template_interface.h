@@ -7,4 +7,6 @@ void GenerateTemplate(const char* name,
                     const char* base_tag,
                     const char* new_tag);
 
+void GenerateStructuresForType(const char* type, const char* tag);
+
 #endif

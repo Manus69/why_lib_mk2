@@ -42,25 +42,6 @@ void MergeSortINT(int* data, size_t index, size_t length, int (*cmp)(int, int));
 //variadic free
 int main()
 {
-    // GenerateTemplate("arrayTAG.c", "TYPE", "char*", "TAG", "CHARPTR");
-    // GenerateTemplate("arrayTAG.h", "TYPE", "char*", "TAG", "CHARPTR");
-    // GenerateTemplate("arrayTAG_interface.h", "TYPE", "char*", "TAG", "CHARPTR");
-
-    VectorTAG* vector;
-
-    int N = 10;
-    vector = VectorCreateTAG();
-    for (int n = 0; n < N; n ++)
-    {
-        VectorPushBackTAG(vector, n);
-        // VectorMapTAG(vector, print_int);
-        // printf("\n");
-    }
-
-    VectorApplyTAG(vector, f);
-    int x = VectorFoldTAG(vector, add, 0);
-    printf("%d\n", x);
-    VectorMapTAG(vector, print_int);
-    // print_int(VectorBackTAG(vector));
-    VectorDestroyAllTAG(vector);
+    GenerateStructuresForType("char*", "CHARPTR");
+    
 }

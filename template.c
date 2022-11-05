@@ -6,6 +6,16 @@
 
 #include <stdio.h>
 
+#define TYPE "TYPE"
+#define TAG "TAG"
+
+static char* struct_file_names[] = 
+{
+    "arrayTAG.c", "arrayTAG.h", "arrayTAG_interface.h",
+    "vectorTAG.c", "vectorTAG.h", "vectorTAG_interface.h",
+    NULL
+};
+
 static char* _get_file_name(const char* name, const char* tag, const char* new_tag)
 {
     return StringReplace(name, tag, new_tag);
@@ -41,8 +51,10 @@ static void _get_file(const char* name, const char* base_type,
     content = _process_file(name, base_type, new_type, base_tag, new_tag);
     CHECK_RETURN(content, NULL, (void)0);
 
+    printf("%s\n", content);
     new_name = _get_file_name(name, base_tag, new_tag);
-    WriteToFileName(new_name, content, true);
+    printf("%s\n", new_name);
+    // WriteToFileName(new_name, content, true);
 
     free(content);
     free(new_name);
@@ -55,4 +67,15 @@ void GenerateTemplate(const char* name,
                     const char* new_tag)
 {
     return _get_file(name, base_type, new_type, base_tag, new_tag);
+}
+
+void GenerateStructuresForType(const char* type, const char* tag)
+{
+    char* current;
+
+    current = struct_file_names[0];
+    while (current)
+    {
+        GenerateTemplate(current, TYPE, type, TAG, tag);
+    }
 }
