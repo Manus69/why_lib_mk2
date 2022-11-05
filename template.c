@@ -4,6 +4,8 @@
 #include "output_interface.h"
 #include "macros.h"
 
+#include <stdio.h>
+
 static char* _get_file_name(const char* name, const char* tag, const char* new_tag)
 {
     char* new_name;
@@ -20,6 +22,8 @@ static char* _process_file(const char* file_name, const char* base_type,
     char* type_str;
     char* tag_str;
 
+    if (!file_name) return NULL;
+    
     content = ReadFileName(file_name);
     CHECK_RETURN(content, NULL, NULL);
 
@@ -32,33 +36,29 @@ static char* _process_file(const char* file_name, const char* base_type,
     return tag_str;
 }
 
-void GenerateTemplate(const char* source_name,
-                    const char* header_name,
+static void _get_file(const char* name, const char* base_type, 
+                    const char* new_type, const char* base_tag, const char* new_tag)
+{
+    char* new_name;
+    char* content;
+
+    content = _process_file(name, base_type, new_type, base_tag, new_tag);
+    if (!content) return ;
+
+    printf("%s\n", content);
+    new_name = _get_file_name(name, base_tag, new_tag);
+    printf("%s\n", new_name);
+    WriteToFileName(new_name, content, true);
+
+    free(content);
+    free(new_name);
+}
+
+void GenerateTemplate(const char* name,
                     const char* base_type,
                     const char* new_type,
                     const char* base_tag,
                     const char* new_tag)
 {
-    char* header;
-    char* source;
-    char* new_header_name;
-    char* new_source_name;
-
-    header = _process_file(header_name, base_type, new_type, base_tag, new_tag);
-    source = _process_file(source_name, base_type, new_type, base_tag, new_tag);
-
-    if (header && source)
-    {
-        new_header_name = _get_file_name(header_name, base_tag, new_tag);
-        new_source_name = _get_file_name(source_name, base_tag, new_tag);
-
-        WriteToFileName(header_name, header, true);
-        WriteToFileName(source_name, source, true);
-
-        free(new_header_name);
-        free(new_source_name);
-    }
-
-    free(header);
-    free(source);
+    return _get_file(name, base_type, new_type, base_tag, new_tag);
 }

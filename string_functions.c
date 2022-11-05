@@ -30,8 +30,9 @@ char* StringReplace(const char* str, const char* what, const char* value)
     Buffer* buffer;
     char*   result;
 
-    if (*what == 0)
-        return NULL;
+    CHECK_RETURN(str, NULL, NULL);
+    CHECK_CONDITION_RETURN(!what || !value, strdup(str));
+    CHECK_CONDITION_RETURN(*what == 0, NULL);
     
     buffer = BufferCreate(strlen(str));
     CHECK_RETURN(buffer, NULL, NULL);

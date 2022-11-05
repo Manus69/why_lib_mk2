@@ -3,9 +3,7 @@
 #include <string.h>
 #include <math.h>
 
-void _print(int* data, size_t length);
-
-void _merge(int* target, const int* lhs, \
+static void _merge(int* target, const int* lhs, \
         const int* rhs, long lhs_length, long rhs_length, int (*cmp)(int, int))
 {
     if (lhs_length < 0 && rhs_length < 0)
@@ -41,12 +39,12 @@ void _merge(int* target, const int* lhs, \
     }
 }
 
-long _get_length(long length, long frame_size)
+static long _get_length(long length, long frame_size)
 {
     return length >= frame_size ? frame_size : length;
 }
 
-void _pass(const int* source, int* target, long frame_size, long length, int (*cmp)(int, int))
+static void _pass(const int* source, int* target, long frame_size, long length, int (*cmp)(int, int))
 {
     int* rhs;
     int* lhs;
@@ -73,7 +71,7 @@ void _pass(const int* source, int* target, long frame_size, long length, int (*c
     
 }
 
-void merge_sort(int* data, long index, long length, int (*cmp)(int, int))
+void merge_sortINT(int* data, long index, long length, int (*cmp)(int, int))
 {
     int* buffer = malloc(sizeof(int) * length);
     int count = 0;
