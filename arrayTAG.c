@@ -1,5 +1,6 @@
 #include "arrayTAG.h"
 #include "arrayTAG_interface.h"
+#include "sort_mergeTAG_interface.h"
 #include "macros.h"
 
 #include <stdlib.h>
@@ -109,4 +110,15 @@ TYPE ArrayFoldTAG(const ArrayTAG* array, size_t index, size_t length,
     }
 
     return result;
+}
+
+void ArraySortSliceTAG(ArrayTAG* array, size_t index, 
+                size_t length, int (*cmp)(const TYPE, const TYPE))
+{
+    return MergeSortTAG(array->data, index, length, cmp);
+}
+
+void ArraySortTAG(ArrayTAG* array, int (*cmp)(const TYPE, const TYPE))
+{
+    return MergeSortTAG(array->data, 0, array->length, cmp);
 }

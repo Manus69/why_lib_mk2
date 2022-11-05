@@ -21,4 +21,8 @@ void ArrayMapTAG(const ArrayTAG* array, size_t index, size_t length, void (*f)(T
 void ArrayApplyTAG(ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE*));
 TYPE ArrayFoldTAG(const ArrayTAG* array, size_t index, size_t length, 
                 TYPE (*f)(TYPE, TYPE), TYPE initial_value);
+void ArraySortSliceTAG(ArrayTAG* array, size_t index, 
+                size_t length, int (*cmp)(const TYPE, const TYPE));
+void ArraySortTAG(ArrayTAG* array, int (*cmp)(const TYPE, const TYPE));
+
 #endif

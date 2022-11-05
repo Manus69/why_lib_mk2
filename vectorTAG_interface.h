@@ -21,5 +21,6 @@ int VectorPushBackTAG(VectorTAG* vector, TYPE value);
 void VectorMapTAG(const VectorTAG* vector, void (*f)(TYPE));
 void VectorApplyTAG(VectorTAG* vector, void (*f)(TYPE*));
 TYPE VectorFoldTAG(const VectorTAG* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_value);
+void VectorSortTAG(VectorTAG* vector, int (*cmp)(const TYPE, const TYPE));
 
 #endif

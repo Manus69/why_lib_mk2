@@ -130,3 +130,8 @@ TYPE VectorFoldTAG(const VectorTAG* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_
 {
     return ArrayFoldTAG(vector->array, vector->index, vector->length, f, initial_value);
 }
+
+void VectorSortTAG(VectorTAG* vector, int (*cmp)(const TYPE, const TYPE))
+{
+    return ArraySortSliceTAG(vector->array, vector->index, vector->length, cmp);
+}
