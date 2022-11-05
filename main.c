@@ -34,14 +34,19 @@ int add(int a, int b)
     return a + b;
 }
 
-void MergeSortCHARPTR(char** data, size_t index, size_t length, int (*cmp)(const char*, const char*));
-void MergeSortINT(int* data, size_t index, size_t length, int (*cmp)(int, int));
+void printstr(char* str)
+{
+    printf("%s\n", str);
+}
 
 #include "vectorTAG_interface.h"
 
 //variadic free
 int main()
 {
-    GenerateStructuresForType("char*", "CHARPTR");
-    
+    // GenerateStructuresForType("char*", "CHARPTR");
+
+    VectorCHARPTR* vector = StringSplit("eat my ass", " ");
+    VectorMapCHARPTR(vector, printstr);
+    VectorDestroyAllCHARPTR(vector);
 }

@@ -1,5 +1,6 @@
 #include "string_functions.h"
 #include "buffer_interface.h"
+#include "vectorCHARPTR_interface.h"
 #include "macros.h"
 
 #include <string.h>
@@ -8,16 +9,15 @@ static void _replace(Buffer* buffer, const char* str, const char* what, const ch
 {
     char* next;
 
-    if (*str == 0)
-        return ;
+    CHECK_RETURN(*str, 0, (void)0);
     
     next = strstr(str, what);
     
     if (next == NULL)
     {
-        BufferSet(buffer, str);
-        return ;
+        return (void)BufferSet(buffer, str);
     }
+
     BufferSetLength(buffer, str, next - str);
     BufferSet(buffer, value);
     str = next + strlen(what);
@@ -43,4 +43,39 @@ char* StringReplace(const char* str, const char* what, const char* value)
     BufferDestroy(buffer);
 
     return result;
+}
+
+VectorCHARPTR* StringSplit(const char* string, const char* separator)
+{
+    VectorCHARPTR*  vector;
+    char*           next;
+    size_t          length;
+
+    CHECK_RETURN(string, NULL, NULL);
+    vector = VectorCreateCHARPTR();
+    CHECK_RETURN(vector, NULL, NULL);
+
+    if (separator == NULL || *separator == 0)
+    {
+        VectorPushBackCHARPTR(vector, strdup(string));
+
+        return vector;
+    }
+
+    length = strlen(separator);
+    while (*string)
+    {
+        next = strstr(string, separator);
+        if (next == NULL)
+        {
+            VectorPushBackCHARPTR(vector, strdup(string));
+
+            break ;
+        }
+
+        VectorPushBackCHARPTR(vector, strndup(string, next - string));
+        string = next + length;
+    }
+    
+    return vector;
 }

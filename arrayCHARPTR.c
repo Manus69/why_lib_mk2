@@ -56,7 +56,7 @@ int ArrayExpandRightCHARPTR(ArrayCHARPTR* array, size_t extra_items)
 {
     char** new_data;
 
-    new_data = realloc(array->data, array->length + extra_items);
+    new_data = realloc(array->data, (array->length + extra_items) * sizeof(char*));
     CHECK_RETURN(new_data, NULL, NOT_OK);
 
     array->data = new_data;
@@ -77,4 +77,30 @@ int ArrayExpandLeftCHARPTR(ArrayCHARPTR* array, size_t extra_items)
     array->length += extra_items;
 
     return OK;
+}
+
+void ArrayMapCHARPTR(const ArrayCHARPTR* array, size_t index, size_t length, void (*f)(char*))
+{
+    for (size_t k = index; k < length + index; k ++)
+        f(array->data[k]);
+}
+
+void ArrayApplyCHARPTR(ArrayCHARPTR* array, size_t index, size_t length, void (*f)(char**))
+{
+    for (size_t k = index; k < length + index; k ++)
+        f(&array->data[k]);
+}
+
+char* ArrayFoldCHARPTR(const ArrayCHARPTR* array, size_t index, size_t length, 
+                char* (*f)(char*, char*), char* initial_value)
+{
+    char* result;
+
+    result = initial_value;
+    for (size_t k = index; k < length + index; k ++)
+    {
+        result = f(result, array->data[k]);
+    }
+
+    return result;
 }

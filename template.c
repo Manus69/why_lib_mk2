@@ -51,10 +51,10 @@ static void _get_file(const char* name, const char* base_type,
     content = _process_file(name, base_type, new_type, base_tag, new_tag);
     CHECK_RETURN(content, NULL, (void)0);
 
-    printf("%s\n", content);
+    // printf("%s\n", content);
     new_name = _get_file_name(name, base_tag, new_tag);
-    printf("%s\n", new_name);
-    // WriteToFileName(new_name, content, true);
+    // printf("%s\n", new_name);
+    WriteToFileName(new_name, content, true);
 
     free(content);
     free(new_name);
@@ -71,11 +71,12 @@ void GenerateTemplate(const char* name,
 
 void GenerateStructuresForType(const char* type, const char* tag)
 {
-    char* current;
+    size_t index;
 
-    current = struct_file_names[0];
-    while (current)
+    index = 0;
+    while (struct_file_names[index])
     {
-        GenerateTemplate(current, TYPE, type, TAG, tag);
+        GenerateTemplate(struct_file_names[index], TYPE, type, TAG, tag);
+        index ++;
     }
 }

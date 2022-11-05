@@ -31,8 +31,14 @@ void ArrayDestroyDataTAG(ArrayTAG* array)
     free(array->data);
 }
 
-void ArrayDestroyAllTAG(ArrayTAG* array)
+void ArrayDestroyElementsTAG(ArrayTAG* array, void (*f)(TYPE))
 {
+    ArrayMapTAG(array, 0, array->length, f);
+}
+
+void ArrayDestroyAllTAG(ArrayTAG* array, void (*f)(TYPE))
+{
+    if (f) ArrayDestroyElementsTAG(array, f);
     ArrayDestroyDataTAG(array);
     ArrayDestroyTAG(array);
 }

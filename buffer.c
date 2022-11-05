@@ -96,6 +96,17 @@ int BufferSet(Buffer* buffer, const char* str)
     return BufferSetLength(buffer, str, strlen(str));
 }
 
+int BufferSetByte(Buffer* buffer, char byte)
+{
+    if ((BufferCapacity(buffer) < 1) && (BufferExpand(buffer, 1) == NOT_OK))
+        return NOT_OK;
+
+    buffer->data[buffer->index] = byte;
+    buffer->index ++;
+
+    return OK;
+}
+
 char* BufferGetContent(const Buffer* buffer)
 {
     buffer->data[buffer->index] = 0;

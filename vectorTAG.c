@@ -3,7 +3,7 @@
 #include "macros.h"
 #include "why.h"
 
-#define DEFAULT_CAPACITY (1 << 2)
+#define DEFAULT_CAPACITY (1 << 10)
 
 VectorTAG* VectorCreateLengthTAG(size_t length)
 {
@@ -32,10 +32,15 @@ void VectorDestroyTAG(VectorTAG* vector)
     free(vector);
 }
 
-void VectorDestroyAllTAG(VectorTAG* vector)
+void VectorDestroyAllTAG(VectorTAG* vector, void (*f)(TYPE))
 {
-    ArrayDestroyAllTAG(vector->array);
+    ArrayDestroyAllTAG(vector->array, f);
     free(vector);
+}
+
+void VectorDestroyElementsTAG(VectorTAG* vector, void (*f)(TYPE))
+{
+    ArrayDestroyElementsTAG(vector->array, f);
 }
 
 static size_t _map_index(const VectorTAG* vector, size_t index)

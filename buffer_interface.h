@@ -16,6 +16,7 @@ char BufferGet(const Buffer* buffer, size_t index);
 int BufferExpand(Buffer* buffer, size_t length);
 int BufferSetLength(Buffer* buffer, const char* str, size_t length);
 int BufferSet(Buffer* buffer, const char* str);
+int BufferSetByte(Buffer* buffer, char byte);
 char* BufferGetContent(const Buffer* buffer);
 char* BufferGetContentCopy(const Buffer* buffer);
 
