@@ -79,15 +79,28 @@ int ArrayExpandLeftTAG(ArrayTAG* array, size_t extra_items)
     return OK;
 }
 
-void ArrayApplyTAG(const ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE))
+void ArrayMapTAG(const ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE))
 {
-    size_t last;
+    for (size_t k = index; k < length + index; k ++)
+        f(array->data[k]);
+}
 
-    last = index + length;
+void ArrayApplyTAG(ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE*))
+{
+    for (size_t k = index; k < length + index; k ++)
+        f(&array->data[k]);
+}
 
-    while (index < last)
+TYPE ArrayFoldTAG(const ArrayTAG* array, size_t index, size_t length, 
+                TYPE (*f)(TYPE, TYPE), TYPE initial_value)
+{
+    TYPE result;
+
+    result = initial_value;
+    for (size_t k = index; k < length + index; k ++)
     {
-        f(array->data[index]);
-        index ++;
+        result = f(result, array->data[k]);
     }
+
+    return result;
 }

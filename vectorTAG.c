@@ -110,7 +110,17 @@ TYPE VectorBackTAG(const VectorTAG* vector)
     return ArrayGetTAG(vector->array, _last_item_index(vector));
 }
 
-void VectorApplyTAG(const VectorTAG* vector, void (*f)(TYPE))
+void VectorMapTAG(const VectorTAG* vector, void (*f)(TYPE))
+{
+    return ArrayMapTAG(vector->array, vector->index, vector->length, f);
+}
+
+void VectorApplyTAG(VectorTAG* vector, void (*f)(TYPE*))
 {
     return ArrayApplyTAG(vector->array, vector->index, vector->length, f);
+}
+
+TYPE VectorFoldTAG(const VectorTAG* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_value)
+{
+    return ArrayFoldTAG(vector->array, vector->index, vector->length, f, initial_value);
 }

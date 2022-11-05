@@ -17,7 +17,8 @@ size_t VectorLeftCapacityTAG(const VectorTAG* vector);
 int VectorExpandRightTAG(VectorTAG* vector, size_t n_items);
 int VectorExpandLeftTAG(VectorTAG* vector, size_t n_items);
 int VectorPushBackTAG(VectorTAG* vector, TYPE value);
-void VectorApplyTAG(const VectorTAG* vector, void (*f)(TYPE));
-
+void VectorMapTAG(const VectorTAG* vector, void (*f)(TYPE));
+void VectorApplyTAG(VectorTAG* vector, void (*f)(TYPE*));
+TYPE VectorFoldTAG(const VectorTAG* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_value);
 
 #endif

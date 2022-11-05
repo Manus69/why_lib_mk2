@@ -16,6 +16,8 @@ TYPE ArrayGetTAG(const ArrayTAG* array, size_t index);
 void ArraySetTAG(ArrayTAG* array, size_t index, TYPE value);
 int ArrayExpandRightTAG(ArrayTAG* array, size_t extra_items);
 int ArrayExpandLeftTAG(ArrayTAG* array, size_t extra_items);
-void ArrayApplyTAG(const ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE));
-
+void ArrayMapTAG(const ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE));
+void ArrayApplyTAG(ArrayTAG* array, size_t index, size_t length, void (*f)(TYPE*));
+TYPE ArrayFoldTAG(const ArrayTAG* array, size_t index, size_t length, 
+                TYPE (*f)(TYPE, TYPE), TYPE initial_value);
 #endif
