@@ -36,6 +36,22 @@ void TableEntryDestroy_T_X(TableEntry_T_X* entry)
     }
 }
 
+void TableEntryDestroyElements_T_X(TableEntry_T_X* entry, void (*f)(XYPE))
+{
+    if (entry)
+    {
+        return VectorDestroyElements_X(entry->value_vector, f);
+    }
+}
+
+void TableEntryMap_T_X(TableEntry_T_X* entry, void (*f)(XYPE))
+{
+    if (entry)
+    {
+        return VectorMap_X(entry->value_vector, f);
+    }
+}
+
 Table_T_X* TableCreate_T_X(size_t size, size_t (*hash)(const TYPE),
                         int (*cmp)(const XYPE, const XYPE))
 {
@@ -69,14 +85,49 @@ void TableDestroy_T_X(Table_T_X* table)
     free(table);
 }
 
-size_t TableFind_T_X(const Table_T_X* table, TYPE key)
+void TableMap_T_X(Table_T_X* table, void (*f)(XYPE))
 {
-    size_t      hash;
-    Vector_PTR* entries;
+    Vector_PTR*     entries;
+    TableEntry_T_X* entry;
+
+    for (size_t k = 0; k < TableSize_T_X(table); k ++)
+    {
+        entries = ArrayGet_PTR(table->array, k);
+        for (size_t n = 0; n < VectorLength_PTR(entries); n ++)
+        {
+            entry = VectorGet_PTR(entries, n);
+            TableEntryMap_T_X(entry, f);
+        }
+    }
+}
+
+void TableDestroyElements_T_X(Table_T_X* table, void (*f)(XYPE))
+{
+    return TableMap_T_X(table, f);
+}
+
+size_t TableFindIndex_T_X(const Table_T_X* table, TYPE key)
+{
+    size_t          index;
+    size_t          hash;
+    Vector_PTR*     entries;
+    TableEntry_T_X* entry;
 
     hash = table->hash(key) % TableSize_T_X(table);
     entries = ArrayGet_PTR(table->array, hash);
     CHECK_RETURN(entries, NULL, NOT_FOUND);
 
+    for (size_t k = 0; k < VectorLength_PTR(entries); k ++)
+    {
+        entry = VectorGet_PTR(entries, k);
+        index = VectorFindIndex_X(entry->value_vector, key, table->cmp);
+        CHECK_CONDITION_RETURN(index != NOT_FOUND, hash);
+    }
+
+    return NOT_FOUND;
+}
+
+int TableInsert_T_X(Table_T_X* table, TYPE key, XYPE value)
+{
     
 }

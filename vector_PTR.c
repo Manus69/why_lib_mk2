@@ -29,7 +29,10 @@ Vector_PTR* VectorCreate_PTR()
 
 void VectorDestroy_PTR(Vector_PTR* vector)
 {
-    free(vector);
+    if (vector)
+    {
+        free(vector);
+    }
 }
 
 void VectorDestroyAll_PTR(Vector_PTR* vector, void (*f)(void*))
@@ -41,7 +44,12 @@ void VectorDestroyAll_PTR(Vector_PTR* vector, void (*f)(void*))
 
 void VectorDestroyElements_PTR(Vector_PTR* vector, void (*f)(void*))
 {
-    ArrayDestroyElements_PTR(vector->array, f);
+    return ArrayDestroyElements_PTR(vector->array, f);
+}
+
+size_t VectorLength_PTR(const Vector_PTR* vector)
+{
+    return vector->length;
 }
 
 static size_t _map_index(const Vector_PTR* vector, size_t index)
@@ -144,4 +152,10 @@ void* VectorFold_PTR(const Vector_PTR* vector, void* (*f)(void*, void*), void* i
 void VectorSort_PTR(Vector_PTR* vector, int (*cmp)(const void*, const void*))
 {
     return ArraySortSlice_PTR(vector->array, vector->index, vector->length, cmp);
+}
+
+size_t VectorFindIndex_PTR(const Vector_PTR* vector, void* value, int (*cmp)(const void*, const void*))
+{
+    return ArrayFindIndex_PTR(vector->array, value, vector->index, vector->length, cmp)
+                     + vector->index;
 }

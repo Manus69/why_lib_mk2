@@ -14,6 +14,7 @@ void* VectorGet_PTR(const Vector_PTR* vector, size_t index);
 void VectorSet_PTR(Vector_PTR* vector, size_t index, void* value);
 void* VectorBack_PTR(const Vector_PTR* vector);
 void* VectorPopBack_PTR(Vector_PTR* vector);
+size_t VectorLength_PTR(const Vector_PTR* vector);
 size_t VectorRightCapacity_PTR(const Vector_PTR* vector);
 size_t VectorLeftCapacity_PTR(const Vector_PTR* vector);
 int VectorExpandRight_PTR(Vector_PTR* vector, size_t n_items);
@@ -23,5 +24,6 @@ void VectorMap_PTR(const Vector_PTR* vector, void (*f)(void*));
 void VectorApply_PTR(Vector_PTR* vector, void (*f)(void**));
 void* VectorFold_PTR(const Vector_PTR* vector, void* (*f)(void*, void*), void* initial_value);
 void VectorSort_PTR(Vector_PTR* vector, int (*cmp)(const void*, const void*));
+size_t VectorFindIndex_PTR(const Vector_PTR* vector, void* value, int (*cmp)(const void*, const void*));
 
 #endif

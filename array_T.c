@@ -135,7 +135,7 @@ void ArraySort_T(Array_T* array, int (*cmp)(const TYPE, const TYPE))
     return MergeSort_T(array->data, 0, array->length, cmp);
 }
 
-size_t ArrayFind_T(const Array_T* array, TYPE value,
+size_t ArrayFindIndex_T(const Array_T* array, TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE))
 {
     while (index < length)

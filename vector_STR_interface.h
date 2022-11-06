@@ -14,6 +14,7 @@ char* VectorGet_STR(const Vector_STR* vector, size_t index);
 void VectorSet_STR(Vector_STR* vector, size_t index, char* value);
 char* VectorBack_STR(const Vector_STR* vector);
 char* VectorPopBack_STR(Vector_STR* vector);
+size_t VectorLength_STR(const Vector_STR* vector);
 size_t VectorRightCapacity_STR(const Vector_STR* vector);
 size_t VectorLeftCapacity_STR(const Vector_STR* vector);
 int VectorExpandRight_STR(Vector_STR* vector, size_t n_items);
@@ -23,5 +24,6 @@ void VectorMap_STR(const Vector_STR* vector, void (*f)(char*));
 void VectorApply_STR(Vector_STR* vector, void (*f)(char**));
 char* VectorFold_STR(const Vector_STR* vector, char* (*f)(char*, char*), char* initial_value);
 void VectorSort_STR(Vector_STR* vector, int (*cmp)(const char*, const char*));
+size_t VectorFindIndex_STR(const Vector_STR* vector, char* value, int (*cmp)(const char*, const char*));
 
 #endif

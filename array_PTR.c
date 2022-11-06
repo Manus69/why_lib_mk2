@@ -134,3 +134,15 @@ void ArraySort_PTR(Array_PTR* array, int (*cmp)(const void*, const void*))
 {
     return MergeSort_PTR(array->data, 0, array->length, cmp);
 }
+
+size_t ArrayFindIndex_PTR(const Array_PTR* array, void* value,
+                size_t index, size_t length, int (*cmp)(const void*, const void*))
+{
+    while (index < length)
+    {
+        CHECK_RETURN(cmp(array->data[index], value), 0, index);
+        index ++;
+    }
+
+    return -1;
+}

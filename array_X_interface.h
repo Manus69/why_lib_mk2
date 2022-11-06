@@ -25,5 +25,7 @@ XYPE ArrayFold_X(const Array_X* array, size_t index, size_t length,
 void ArraySortSlice_X(Array_X* array, size_t index, 
                 size_t length, int (*cmp)(const XYPE, const XYPE));
 void ArraySort_X(Array_X* array, int (*cmp)(const XYPE, const XYPE));
+size_t ArrayFindIndex_X(const Array_X* array, XYPE value,
+                size_t index, size_t length, int (*cmp)(const XYPE, const XYPE));
 
 #endif

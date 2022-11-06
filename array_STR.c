@@ -134,3 +134,15 @@ void ArraySort_STR(Array_STR* array, int (*cmp)(const char*, const char*))
 {
     return MergeSort_STR(array->data, 0, array->length, cmp);
 }
+
+size_t ArrayFindIndex_STR(const Array_STR* array, char* value,
+                size_t index, size_t length, int (*cmp)(const char*, const char*))
+{
+    while (index < length)
+    {
+        CHECK_RETURN(cmp(array->data[index], value), 0, index);
+        index ++;
+    }
+
+    return -1;
+}

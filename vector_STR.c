@@ -29,7 +29,10 @@ Vector_STR* VectorCreate_STR()
 
 void VectorDestroy_STR(Vector_STR* vector)
 {
-    free(vector);
+    if (vector)
+    {
+        free(vector);
+    }
 }
 
 void VectorDestroyAll_STR(Vector_STR* vector, void (*f)(char*))
@@ -41,7 +44,12 @@ void VectorDestroyAll_STR(Vector_STR* vector, void (*f)(char*))
 
 void VectorDestroyElements_STR(Vector_STR* vector, void (*f)(char*))
 {
-    ArrayDestroyElements_STR(vector->array, f);
+    return ArrayDestroyElements_STR(vector->array, f);
+}
+
+size_t VectorLength_STR(const Vector_STR* vector)
+{
+    return vector->length;
 }
 
 static size_t _map_index(const Vector_STR* vector, size_t index)
@@ -144,4 +152,10 @@ char* VectorFold_STR(const Vector_STR* vector, char* (*f)(char*, char*), char* i
 void VectorSort_STR(Vector_STR* vector, int (*cmp)(const char*, const char*))
 {
     return ArraySortSlice_STR(vector->array, vector->index, vector->length, cmp);
+}
+
+size_t VectorFindIndex_STR(const Vector_STR* vector, char* value, int (*cmp)(const char*, const char*))
+{
+    return ArrayFindIndex_STR(vector->array, value, vector->index, vector->length, cmp)
+                     + vector->index;
 }

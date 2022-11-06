@@ -29,7 +29,10 @@ Vector_X* VectorCreate_X()
 
 void VectorDestroy_X(Vector_X* vector)
 {
-    free(vector);
+    if (vector)
+    {
+        free(vector);
+    }
 }
 
 void VectorDestroyAll_X(Vector_X* vector, void (*f)(XYPE))
@@ -41,7 +44,12 @@ void VectorDestroyAll_X(Vector_X* vector, void (*f)(XYPE))
 
 void VectorDestroyElements_X(Vector_X* vector, void (*f)(XYPE))
 {
-    ArrayDestroyElements_X(vector->array, f);
+    return ArrayDestroyElements_X(vector->array, f);
+}
+
+size_t VectorLength_X(const Vector_X* vector)
+{
+    return vector->length;
 }
 
 static size_t _map_index(const Vector_X* vector, size_t index)
@@ -144,4 +152,10 @@ XYPE VectorFold_X(const Vector_X* vector, XYPE (*f)(XYPE, XYPE), XYPE initial_va
 void VectorSort_X(Vector_X* vector, int (*cmp)(const XYPE, const XYPE))
 {
     return ArraySortSlice_X(vector->array, vector->index, vector->length, cmp);
+}
+
+size_t VectorFindIndex_X(const Vector_X* vector, XYPE value, int (*cmp)(const XYPE, const XYPE))
+{
+    return ArrayFindIndex_X(vector->array, value, vector->index, vector->length, cmp)
+                     + vector->index;
 }

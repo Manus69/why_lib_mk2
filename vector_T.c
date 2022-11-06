@@ -29,7 +29,10 @@ Vector_T* VectorCreate_T()
 
 void VectorDestroy_T(Vector_T* vector)
 {
-    free(vector);
+    if (vector)
+    {
+        free(vector);
+    }
 }
 
 void VectorDestroyAll_T(Vector_T* vector, void (*f)(TYPE))
@@ -41,7 +44,12 @@ void VectorDestroyAll_T(Vector_T* vector, void (*f)(TYPE))
 
 void VectorDestroyElements_T(Vector_T* vector, void (*f)(TYPE))
 {
-    ArrayDestroyElements_T(vector->array, f);
+    return ArrayDestroyElements_T(vector->array, f);
+}
+
+size_t VectorLength_T(const Vector_T* vector)
+{
+    return vector->length;
 }
 
 static size_t _map_index(const Vector_T* vector, size_t index)
@@ -146,8 +154,8 @@ void VectorSort_T(Vector_T* vector, int (*cmp)(const TYPE, const TYPE))
     return ArraySortSlice_T(vector->array, vector->index, vector->length, cmp);
 }
 
-size_t VectorFind_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE))
+size_t VectorFindIndex_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE))
 {
-    return ArrayFind_T(vector->array, value, vector->index, vector->length, cmp)
+    return ArrayFindIndex_T(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
 }
