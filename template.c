@@ -3,12 +3,13 @@
 #include "input_interface.h"
 #include "output_interface.h"
 #include "string_functions.h"
+#include "memory_interface.h"
 #include "macros.h"
 
 #include <stdio.h>
 
 #define TYPE "TYPE"
-#define TAG "TAG"
+#define TAG "T"
 
 static char* struct_file_names[] = 
 {
@@ -67,22 +68,27 @@ void GenerateTemplate(const char* name,
                     const char* base_tag,
                     const char* new_tag)
 {
-    return _get_file(name, base_type, new_type, base_tag, new_tag);
+    char* _base_tag;
+    char* _new_tag;
+
+    _base_tag = StringConcat("_", base_tag, NULL);
+    _new_tag = StringConcat("_", new_tag, NULL);
+
+    _get_file(name, base_type, new_type, _base_tag, _new_tag);
+
+    Free(_base_tag, _new_tag, NULL);
+    // free(_base_tag);
+    // free(_new_tag);
 }
 
 void GenerateStructuresForType(const char* type, const char* tag)
 {
     size_t index;
-    char*  _tag;
 
     index = 0;
-    _tag = StringConcat("_", tag, NULL);
-
     while (struct_file_names[index])
     {
-        GenerateTemplate(struct_file_names[index], TYPE, type, _tag, tag);
+        GenerateTemplate(struct_file_names[index], TYPE, type, TAG, tag);
         index ++;
     }
-
-    free(_tag);
 }
