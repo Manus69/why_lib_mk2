@@ -21,4 +21,8 @@ void ArrayMapCHARPTR(const ArrayCHARPTR* array, size_t index, size_t length, voi
 void ArrayApplyCHARPTR(ArrayCHARPTR* array, size_t index, size_t length, void (*f)(char**));
 char* ArrayFoldCHARPTR(const ArrayCHARPTR* array, size_t index, size_t length, 
                 char* (*f)(char*, char*), char* initial_value);
+void ArraySortSliceCHARPTR(ArrayCHARPTR* array, size_t index, 
+                size_t length, int (*cmp)(const char*, const char*));
+void ArraySortCHARPTR(ArrayCHARPTR* array, int (*cmp)(const char*, const char*));
+
 #endif

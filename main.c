@@ -42,6 +42,10 @@ void printstr(char* str)
 #include "vectorTAG_interface.h"
 
 //prettyfy
+//parse int
+//list, set, table, 
+//unique, filter
+//rational, natural, matrix ?
 int main()
 {
     // GenerateStructuresForType("char*", "CHARPTR");
@@ -49,9 +53,11 @@ int main()
     // GenerateTemplate("sort_mergeTAG_interface.h", "TYPE", "char*", "TAG", "CHARPTR");
 
     //
-    // char* str = ReadFileName("text_file.txt");
-    // VectorCHARPTR* vector = StringSplit(str, "\n");
-    // VectorMapCHARPTR(vector, printstr);
-    // VectorDestroyAllCHARPTR(vector, (void (*)(char*))free);
-    // free(str);
+    char* str = ReadFileName("text_file.txt");
+    VectorCHARPTR* vector = StringSplit(str, "\n");
+    VectorSortCHARPTR(vector, strcmp);
+    VectorMapCHARPTR(vector, printstr);
+    // printf("%s\n", VectorBackCHARPTR(vector));
+    VectorDestroyAllCHARPTR(vector, (void (*)(char*))free);
+    free(str);
 }

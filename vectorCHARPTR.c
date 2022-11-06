@@ -130,3 +130,8 @@ char* VectorFoldCHARPTR(const VectorCHARPTR* vector, char* (*f)(char*, char*), c
 {
     return ArrayFoldCHARPTR(vector->array, vector->index, vector->length, f, initial_value);
 }
+
+void VectorSortCHARPTR(VectorCHARPTR* vector, int (*cmp)(const char*, const char*))
+{
+    return ArraySortSliceCHARPTR(vector->array, vector->index, vector->length, cmp);
+}

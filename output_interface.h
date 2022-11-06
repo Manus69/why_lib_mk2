@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-void WriteToFile(int file, const char* string);
-void WriteToFileName(const char* name, const char* string, bool truncate);
+ssize_t WriteToFile(int file, const char* string);
+ssize_t WriteToFileName(const char* name, const char* string, bool truncate);
 
 #endif

@@ -21,5 +21,6 @@ int VectorPushBackCHARPTR(VectorCHARPTR* vector, char* value);
 void VectorMapCHARPTR(const VectorCHARPTR* vector, void (*f)(char*));
 void VectorApplyCHARPTR(VectorCHARPTR* vector, void (*f)(char**));
 char* VectorFoldCHARPTR(const VectorCHARPTR* vector, char* (*f)(char*, char*), char* initial_value);
+void VectorSortCHARPTR(VectorCHARPTR* vector, int (*cmp)(const char*, const char*));
 
 #endif

@@ -1,5 +1,6 @@
 #include "arrayCHARPTR.h"
 #include "arrayCHARPTR_interface.h"
+#include "sort_mergeCHARPTR_interface.h"
 #include "macros.h"
 
 #include <stdlib.h>
@@ -109,4 +110,15 @@ char* ArrayFoldCHARPTR(const ArrayCHARPTR* array, size_t index, size_t length,
     }
 
     return result;
+}
+
+void ArraySortSliceCHARPTR(ArrayCHARPTR* array, size_t index, 
+                size_t length, int (*cmp)(const char*, const char*))
+{
+    return MergeSortCHARPTR(array->data, index, length, cmp);
+}
+
+void ArraySortCHARPTR(ArrayCHARPTR* array, int (*cmp)(const char*, const char*))
+{
+    return MergeSortCHARPTR(array->data, 0, array->length, cmp);
 }

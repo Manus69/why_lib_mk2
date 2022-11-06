@@ -10,12 +10,12 @@
 #define APPEND O_CREAT | O_APPEND | O_RDWR
 #define TRUNCATE O_CREAT | O_TRUNC | O_RDWR
 
-void WriteToFile(int file, const char* string)
+ssize_t WriteToFile(int file, const char* string)
 {
-    return (void)write(file, string, strlen(string));
+    return write(file, string, strlen(string));
 }
 
-void WriteToFileName(const char* name, const char* string, bool truncate)
+ssize_t WriteToFileName(const char* name, const char* string, bool truncate)
 {
     int file;
     int mode;
