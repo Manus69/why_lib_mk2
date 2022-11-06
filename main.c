@@ -42,15 +42,17 @@ void printstr(char* str)
 //fake
 //prettyfy
 //parse int
-//list, set, table, 
+//list, set, table, avl
 //unique, filter
-//rational, natural, matrix ?
+//rational, natural
+//variadic replace
 int main()
 {
-    GenerateStructuresForType("void*", "PTR");
-    GenerateStructuresForType("char*", "STR");
-    GenerateStructuresForType("XYPE", "X");
-
+    // GenerateStructuresForType("void*", "PTR");
+    // GenerateStructuresForType("char*", "STR");
+    // GenerateStructuresForType("XYPE", "X");
+    GenerateTemplate("table_T_X.h", "TYPE", "char*", "T", "STR");
+    GenerateTemplate("table_STR_X.h", "XYPE", "char*", "X", "STR");
     //
     // char* str = ReadFileName("text_file.txt");
     // VectorCHARPTR* vector = StringSplit(str, "\n");
