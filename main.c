@@ -48,8 +48,8 @@ void printstr(char* str)
 //rational, natural, matrix ?
 int main()
 {
-    GenerateStructuresForType("char*", "CHARPTR");
-    // GenerateTemplate("sort_mergeTAG.c", "TYPE", "char*", "TAG", "CHARPTR");
+    // GenerateStructuresForType("char*", "CHARPTR");
+    // GenerateTemplate("sort_merge_TAG.c", "TYPE", "char*", "TAG", "CHARPTR");
     // GenerateTemplate("sort_mergeTAG_interface.h", "TYPE", "char*", "TAG", "CHARPTR");
 
     //

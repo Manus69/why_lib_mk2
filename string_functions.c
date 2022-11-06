@@ -1,6 +1,6 @@
 #include "string_functions.h"
 #include "buffer_interface.h"
-// #include "Vector_CHARPTR_interface.h"
+#include "vector_CHARPTR_interface.h"
 #include "macros.h"
 
 #include <string.h>
@@ -46,40 +46,40 @@ char* StringReplace(const char* str, const char* what, const char* value)
     return result;
 }
 
-// Vector_CHARPTR* StringSplit(const char* string, const char* separator)
-// {
-//     Vector_CHARPTR* vector;
-//     char*           next;
-//     size_t          length;
+Vector_CHARPTR* StringSplit(const char* string, const char* separator)
+{
+    Vector_CHARPTR* vector;
+    char*           next;
+    size_t          length;
 
-//     CHECK_RETURN(string, NULL, NULL);
-//     vector = VectorCreateCHARPTR();
-//     CHECK_RETURN(vector, NULL, NULL);
+    CHECK_RETURN(string, NULL, NULL);
+    vector = VectorCreateCHARPTR();
+    CHECK_RETURN(vector, NULL, NULL);
 
-//     if (separator == NULL || *separator == 0)
-//     {
-//         VectorPushBackCHARPTR(vector, strdup(string));
+    if (separator == NULL || *separator == 0)
+    {
+        VectorPushBackCHARPTR(vector, strdup(string));
 
-//         return vector;
-//     }
+        return vector;
+    }
 
-//     length = strlen(separator);
-//     while (*string)
-//     {
-//         next = strstr(string, separator);
-//         if (next == NULL)
-//         {
-//             VectorPushBackCHARPTR(vector, strdup(string));
+    length = strlen(separator);
+    while (*string)
+    {
+        next = strstr(string, separator);
+        if (next == NULL)
+        {
+            VectorPushBackCHARPTR(vector, strdup(string));
 
-//             break ;
-//         }
+            break ;
+        }
 
-//         VectorPushBackCHARPTR(vector, strndup(string, next - string));
-//         string = next + length;
-//     }
+        VectorPushBackCHARPTR(vector, strndup(string, next - string));
+        string = next + length;
+    }
     
-//     return vector;
-// }
+    return vector;
+}
 
 #define STR_LENGTH (1 << 8)
 

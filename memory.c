@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include <stdio.h>
-
 #include "macros.h"
 
 static void _map(void (*f)(void*), void* ptr, va_list* args)

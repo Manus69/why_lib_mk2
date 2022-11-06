@@ -1,12 +1,12 @@
 #include "array_T.h"
 #include "array_T_interface.h"
-#include "sort_mergeTAG_interface.h"
+#include "sort_merge_T_interface.h"
 #include "macros.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-Array_T* ArrayCreateTAG(size_t length)
+Array_T* ArrayCreate_T(size_t length)
 {
     Array_T* array;
 
@@ -22,44 +22,44 @@ Array_T* ArrayCreateTAG(size_t length)
     return array;
 }
 
-void ArrayDestroyTAG(Array_T* array)
+void ArrayDestroy_T(Array_T* array)
 {
     free(array);
 }
 
-void ArrayDestroyDataTAG(Array_T* array)
+void ArrayDestroyData_T(Array_T* array)
 {
     free(array->data);
 }
 
-void ArrayDestroyElementsTAG(Array_T* array, void (*f)(TYPE))
+void ArrayDestroyElements_T(Array_T* array, void (*f)(TYPE))
 {
-    ArrayMapTAG(array, 0, array->length, f);
+    ArrayMap_T(array, 0, array->length, f);
 }
 
-void ArrayDestroyAllTAG(Array_T* array, void (*f)(TYPE))
+void ArrayDestroyAll_T(Array_T* array, void (*f)(TYPE))
 {
-    if (f) ArrayDestroyElementsTAG(array, f);
-    ArrayDestroyDataTAG(array);
-    ArrayDestroyTAG(array);
+    if (f) ArrayDestroyElements_T(array, f);
+    ArrayDestroyData_T(array);
+    ArrayDestroy_T(array);
 }
 
-size_t ArrayLengthTAG(const Array_T* array)
+size_t ArrayLength_T(const Array_T* array)
 {
     return array->length;
 }
 
-TYPE ArrayGetTAG(const Array_T* array, size_t index)
+TYPE ArrayGet_T(const Array_T* array, size_t index)
 {
     return array->data[index];
 }
 
-void ArraySetTAG(Array_T* array, size_t index, TYPE value)
+void ArraySet_T(Array_T* array, size_t index, TYPE value)
 {
     array->data[index] = value;
 }
 
-int ArrayExpandRightTAG(Array_T* array, size_t extra_items)
+int ArrayExpandRight_T(Array_T* array, size_t extra_items)
 {
     TYPE* new_data;
 
@@ -72,7 +72,7 @@ int ArrayExpandRightTAG(Array_T* array, size_t extra_items)
     return OK;
 }
 
-int ArrayExpandLeftTAG(Array_T* array, size_t extra_items)
+int ArrayExpandLeft_T(Array_T* array, size_t extra_items)
 {
     TYPE* new_data;
 
@@ -86,19 +86,19 @@ int ArrayExpandLeftTAG(Array_T* array, size_t extra_items)
     return OK;
 }
 
-void ArrayMapTAG(const Array_T* array, size_t index, size_t length, void (*f)(TYPE))
+void ArrayMap_T(const Array_T* array, size_t index, size_t length, void (*f)(TYPE))
 {
     for (size_t k = index; k < length + index; k ++)
         f(array->data[k]);
 }
 
-void ArrayApplyTAG(Array_T* array, size_t index, size_t length, void (*f)(TYPE*))
+void ArrayApply_T(Array_T* array, size_t index, size_t length, void (*f)(TYPE*))
 {
     for (size_t k = index; k < length + index; k ++)
         f(&array->data[k]);
 }
 
-TYPE ArrayFoldTAG(const Array_T* array, size_t index, size_t length, 
+TYPE ArrayFold_T(const Array_T* array, size_t index, size_t length, 
                 TYPE (*f)(TYPE, TYPE), TYPE initial_value)
 {
     TYPE result;
@@ -112,13 +112,13 @@ TYPE ArrayFoldTAG(const Array_T* array, size_t index, size_t length,
     return result;
 }
 
-void ArraySortSliceTAG(Array_T* array, size_t index, 
+void ArraySortSlice_T(Array_T* array, size_t index, 
                 size_t length, int (*cmp)(const TYPE, const TYPE))
 {
-    return MergeSortTAG(array->data, index, length, cmp);
+    return MergeSort_T(array->data, index, length, cmp);
 }
 
-void ArraySortTAG(Array_T* array, int (*cmp)(const TYPE, const TYPE))
+void ArraySort_T(Array_T* array, int (*cmp)(const TYPE, const TYPE))
 {
-    return MergeSortTAG(array->data, 0, array->length, cmp);
+    return MergeSort_T(array->data, 0, array->length, cmp);
 }

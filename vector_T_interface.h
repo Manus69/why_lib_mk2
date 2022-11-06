@@ -5,23 +5,23 @@
 
 typedef struct Vector_T Vector_T;
 
-Vector_T* VectorCreateLengthTAG(size_t length);
-Vector_T* VectorCreateTAG();
-void VectorDestroyTAG(Vector_T* vector);
-void VectorDestroyAllTAG(Vector_T* vector, void (*f)(TYPE));
-void VectorDestroyElementsTAG(Vector_T* vector, void (*f)(TYPE));
-TYPE VectorGetTAG(const Vector_T* vector, size_t index);
-void VectorSetTAG(const Vector_T* vector, size_t index, TYPE value);
-TYPE VectorBackTAG(const Vector_T* vector);
-TYPE VectorPopBackTAG(Vector_T* vector);
-size_t VectorRightCapacityTAG(const Vector_T* vector);
-size_t VectorLeftCapacityTAG(const Vector_T* vector);
-int VectorExpandRightTAG(Vector_T* vector, size_t n_items);
-int VectorExpandLeftTAG(Vector_T* vector, size_t n_items);
-int VectorPushBackTAG(Vector_T* vector, TYPE value);
-void VectorMapTAG(const Vector_T* vector, void (*f)(TYPE));
-void VectorApplyTAG(Vector_T* vector, void (*f)(TYPE*));
-TYPE VectorFoldTAG(const Vector_T* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_value);
-void VectorSortTAG(Vector_T* vector, int (*cmp)(const TYPE, const TYPE));
+Vector_T* VectorCreateLength_T(size_t length);
+Vector_T* VectorCreate_T();
+void VectorDestroy_T(Vector_T* vector);
+void VectorDestroyAll_T(Vector_T* vector, void (*f)(TYPE));
+void VectorDestroyElements_T(Vector_T* vector, void (*f)(TYPE));
+TYPE VectorGet_T(const Vector_T* vector, size_t index);
+void VectorSet_T(const Vector_T* vector, size_t index, TYPE value);
+TYPE VectorBack_T(const Vector_T* vector);
+TYPE VectorPopBack_T(Vector_T* vector);
+size_t VectorRightCapacity_T(const Vector_T* vector);
+size_t VectorLeftCapacity_T(const Vector_T* vector);
+int VectorExpandRight_T(Vector_T* vector, size_t n_items);
+int VectorExpandLeft_T(Vector_T* vector, size_t n_items);
+int VectorPushBack_T(Vector_T* vector, TYPE value);
+void VectorMap_T(const Vector_T* vector, void (*f)(TYPE));
+void VectorApply_T(Vector_T* vector, void (*f)(TYPE*));
+TYPE VectorFold_T(const Vector_T* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_value);
+void VectorSort_T(Vector_T* vector, int (*cmp)(const TYPE, const TYPE));
 
 #endif

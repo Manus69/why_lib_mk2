@@ -55,11 +55,9 @@ static void _get_file(const char* name, const char* base_type,
 
     // printf("%s\n", content);
     new_name = _get_file_name(name, base_tag, new_tag);
-    printf("%s\n", new_name);
-    // WriteToFileName(new_name, content, true);
-
-    free(content);
-    free(new_name);
+    // printf("%s\n", new_name);
+    WriteToFileName(new_name, content, true);
+    Free(new_name, content, NULL);
 }
 
 void GenerateTemplate(const char* name,
@@ -77,8 +75,6 @@ void GenerateTemplate(const char* name,
     _get_file(name, base_type, new_type, _base_tag, _new_tag);
 
     Free(_base_tag, _new_tag, NULL);
-    // free(_base_tag);
-    // free(_new_tag);
 }
 
 void GenerateStructuresForType(const char* type, const char* tag)
