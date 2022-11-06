@@ -6,22 +6,22 @@
 #include <stdbool.h>
 #include <string.h>
 
-static void _merge(TYPE* target,
-                TYPE* lhs,
-                TYPE* rhs,
+static void _merge(void** target,
+                void** lhs,
+                void** rhs,
                 size_t lhs_length, 
                 size_t rhs_length, 
-                int (*cmp)(const TYPE, const TYPE))
+                int (*cmp)(const void*, const void*))
 {
     while (true)
     {
         if (lhs_length == 0)
         {
-            return (void)memcpy(target, rhs, rhs_length * sizeof(TYPE));
+            return (void)memcpy(target, rhs, rhs_length * sizeof(void*));
         }
         if (rhs_length == 0)
         {
-            return (void)memcpy(target, lhs, lhs_length * sizeof(TYPE));
+            return (void)memcpy(target, lhs, lhs_length * sizeof(void*));
         }
 
         if (cmp(*lhs, *rhs) > 0)
@@ -46,14 +46,14 @@ static size_t _get_length(size_t length, size_t frame_size)
     return length >= frame_size ? frame_size : length;
 }
 
-static void _pass(TYPE* source, 
-                TYPE* target, 
+static void _pass(void** source, 
+                void** target, 
                 size_t frame_size, 
                 size_t length, 
-                int (*cmp)(const TYPE, const TYPE))
+                int (*cmp)(const void*, const void*))
 {
-    TYPE*   rhs;
-    TYPE*   lhs;
+    void**   rhs;
+    void**   lhs;
     size_t  lhs_length;
     size_t  rhs_length;
     size_t  remaining;
@@ -77,14 +77,14 @@ static void _pass(TYPE* source,
     
 }
 
-void MergeSort_T(TYPE* data, size_t index, size_t length, int (*cmp)(const TYPE, const TYPE))
+void MergeSort_PTR(void** data, size_t index, size_t length, int (*cmp)(const void*, const void*))
 {
-    TYPE*   buffer;
+    void**   buffer;
     size_t  count;
     size_t  n_iterations;
     size_t  frame_size;
 
-    buffer = malloc(sizeof(TYPE) * length);
+    buffer = malloc(sizeof(void*) * length);
     CHECK_RETURN(buffer, NULL, (void)0);
 
     n_iterations = log2(length);
@@ -108,7 +108,7 @@ void MergeSort_T(TYPE* data, size_t index, size_t length, int (*cmp)(const TYPE,
     }
 
     if (n_iterations % 2)
-        memcpy(data + index, buffer, sizeof(TYPE) * length);
+        memcpy(data + index, buffer, sizeof(void*) * length);
 
     free(buffer);
 }

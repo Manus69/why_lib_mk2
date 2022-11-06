@@ -22,6 +22,18 @@ Array_T* ArrayCreate_T(size_t length)
     return array;
 }
 
+Array_T* ArrayCreateZero_T(size_t length)
+{
+    Array_T* array;
+
+    array = ArrayCreate_T(length);
+    CHECK_RETURN(array, NULL, NULL);
+
+    memset(array->data, 0, array->length * sizeof(TYPE));
+
+    return array;
+}
+
 void ArrayDestroy_T(Array_T* array)
 {
     free(array);
@@ -121,4 +133,16 @@ void ArraySortSlice_T(Array_T* array, size_t index,
 void ArraySort_T(Array_T* array, int (*cmp)(const TYPE, const TYPE))
 {
     return MergeSort_T(array->data, 0, array->length, cmp);
+}
+
+size_t ArrayFind_T(const Array_T* array, TYPE value,
+                size_t index, size_t length, int (*cmp)(const TYPE, const TYPE))
+{
+    while (index < length)
+    {
+        CHECK_RETURN(cmp(array->data[index], value), 0, index);
+        index ++;
+    }
+
+    return -1;
 }

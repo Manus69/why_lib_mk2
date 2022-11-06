@@ -39,7 +39,6 @@ void printstr(char* str)
     printf("\"%s\"\n", str);
 }
 
-
 //fake
 //prettyfy
 //parse int
@@ -48,9 +47,9 @@ void printstr(char* str)
 //rational, natural, matrix ?
 int main()
 {
-    // GenerateStructuresForType("char*", "CHARPTR");
-    // GenerateTemplate("sort_merge_TAG.c", "TYPE", "char*", "TAG", "CHARPTR");
-    // GenerateTemplate("sort_mergeTAG_interface.h", "TYPE", "char*", "TAG", "CHARPTR");
+    GenerateStructuresForType("void*", "PTR");
+    GenerateStructuresForType("char*", "STR");
+    GenerateStructuresForType("XYPE", "X");
 
     //
     // char* str = ReadFileName("text_file.txt");

@@ -1,6 +1,6 @@
 #include "string_functions.h"
 #include "buffer_interface.h"
-#include "vector_CHARPTR_interface.h"
+#include "vector_STR_interface.h"
 #include "macros.h"
 
 #include <string.h>
@@ -46,19 +46,19 @@ char* StringReplace(const char* str, const char* what, const char* value)
     return result;
 }
 
-Vector_CHARPTR* StringSplit(const char* string, const char* separator)
+Vector_STR* StringSplit(const char* string, const char* separator)
 {
-    Vector_CHARPTR* vector;
+    Vector_STR*     vector;
     char*           next;
     size_t          length;
 
     CHECK_RETURN(string, NULL, NULL);
-    vector = VectorCreateCHARPTR();
+    vector = VectorCreate_STR();
     CHECK_RETURN(vector, NULL, NULL);
 
     if (separator == NULL || *separator == 0)
     {
-        VectorPushBackCHARPTR(vector, strdup(string));
+        VectorPushBack_STR(vector, strdup(string));
 
         return vector;
     }
@@ -69,12 +69,12 @@ Vector_CHARPTR* StringSplit(const char* string, const char* separator)
         next = strstr(string, separator);
         if (next == NULL)
         {
-            VectorPushBackCHARPTR(vector, strdup(string));
+            VectorPushBack_STR(vector, strdup(string));
 
             break ;
         }
 
-        VectorPushBackCHARPTR(vector, strndup(string, next - string));
+        VectorPushBack_STR(vector, strndup(string, next - string));
         string = next + length;
     }
     

@@ -3,7 +3,7 @@
 #include "input_interface.h"
 #include "output_interface.h"
 #include "string_functions.h"
-#include "memory_interface.h"
+#include "memory_functions.h"
 #include "macros.h"
 
 #include <stdio.h>
@@ -15,6 +15,7 @@ static char* struct_file_names[] =
 {
     "array_T.c", "array_T.h", "array_T_interface.h",
     "vector_T.c", "vector_T.h", "vector_T_interface.h",
+    "sort_merge_T.c", "sort_merge_T_interface.h",
     NULL
 };
 

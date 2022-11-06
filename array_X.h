@@ -1,13 +1,13 @@
-#ifndef ARRAY_T_H
-#define ARRAY_T_H
+#ifndef ARRAY_X_H
+#define ARRAY_X_H
 
 #include "template_interface.h"
 
 #include <stdlib.h>
 
-struct Array_T
+struct Array_X
 {
-    TYPE*   data;
+    XYPE*   data;
     size_t  length;
 };
 

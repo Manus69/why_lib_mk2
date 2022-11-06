@@ -61,7 +61,7 @@ TYPE VectorGet_T(const Vector_T* vector, size_t index)
     return ArrayGet_T(vector->array, index);
 }
 
-void VectorSet_T(const Vector_T* vector, size_t index, TYPE value)
+void VectorSet_T(Vector_T* vector, size_t index, TYPE value)
 {
     index = _map_index(vector, index);
 
@@ -144,4 +144,10 @@ TYPE VectorFold_T(const Vector_T* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_va
 void VectorSort_T(Vector_T* vector, int (*cmp)(const TYPE, const TYPE))
 {
     return ArraySortSlice_T(vector->array, vector->index, vector->length, cmp);
+}
+
+size_t VectorFind_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE))
+{
+    return ArrayFind_T(vector->array, value, vector->index, vector->length, cmp)
+                     + vector->index;
 }

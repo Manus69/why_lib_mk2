@@ -1,13 +1,14 @@
 #ifndef ARRAY_T_INTERFACE_H
 #define ARRAY_T_INTERFACE_H
 
-#include "why.h"
+#include "template_interface.h"
 
 #include <stdlib.h>
 
 typedef struct Array_T Array_T;
 
 Array_T* ArrayCreate_T(size_t length);
+Array_T* ArrayCreateZero_T(size_t length);
 void ArrayDestroy_T(Array_T* array);
 void ArrayDestroyData_T(Array_T* array);
 void ArrayDestroyAll_T(Array_T* array, void (*f)(TYPE));
@@ -24,5 +25,7 @@ TYPE ArrayFold_T(const Array_T* array, size_t index, size_t length,
 void ArraySortSlice_T(Array_T* array, size_t index, 
                 size_t length, int (*cmp)(const TYPE, const TYPE));
 void ArraySort_T(Array_T* array, int (*cmp)(const TYPE, const TYPE));
+size_t ArrayFind_T(const Array_T* array, TYPE value,
+                size_t index, size_t length, int (*cmp)(const TYPE, const TYPE));
 
 #endif
