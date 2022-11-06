@@ -1,10 +1,10 @@
 #ifndef STRING_FUNCTIONS_H
 #define STRING_FUNCTIONS_H
 
-#include "vectorCHARPTR_interface.h"
+// #include "vector_CHARPTR_interface.h"
 
 char* StringReplace(const char* str, const char* what, const char* value);
-VectorCHARPTR* StringSplit(const char* string, const char* separator);
 char* StringConcat(const char* str, ...);
+// Vector_CHARPTR* StringSplit(const char* string, const char* separator);
 
 #endif

@@ -23,8 +23,6 @@ ssize_t WriteToFileName(const char* name, const char* string, bool truncate)
     mode = truncate ? TRUNCATE : APPEND;
 
     file = open(name, mode, PERMS);
-    if (file > 0)
-    {
-        return WriteToFile(file, string);
-    }
+    
+    return file > 0 ? WriteToFile(file, string) : -1;
 }

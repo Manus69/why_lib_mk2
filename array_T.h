@@ -1,11 +1,11 @@
-#ifndef ARRAY_TAG_H
-#define ARRAY_TAG_H
+#ifndef ARRAY_T_H
+#define ARRAY_T_H
 
 #include "why.h"
 
 #include <stdlib.h>
 
-struct ArrayTAG
+struct Array_T
 {
     TYPE*   data;
     size_t  length;

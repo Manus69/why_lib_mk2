@@ -2,6 +2,7 @@
 #include "string_functions.h"
 #include "input_interface.h"
 #include "output_interface.h"
+#include "string_functions.h"
 #include "macros.h"
 
 #include <stdio.h>
@@ -11,8 +12,8 @@
 
 static char* struct_file_names[] = 
 {
-    "arrayTAG.c", "arrayTAG.h", "arrayTAG_interface.h",
-    "vectorTAG.c", "vectorTAG.h", "vectorTAG_interface.h",
+    "array_T.c", "array_T.h", "array_T_interface.h",
+    "vector_T.c", "vector_T.h", "vector_T_interface.h",
     NULL
 };
 
@@ -53,8 +54,8 @@ static void _get_file(const char* name, const char* base_type,
 
     // printf("%s\n", content);
     new_name = _get_file_name(name, base_tag, new_tag);
-    // printf("%s\n", new_name);
-    WriteToFileName(new_name, content, true);
+    printf("%s\n", new_name);
+    // WriteToFileName(new_name, content, true);
 
     free(content);
     free(new_name);
@@ -72,11 +73,16 @@ void GenerateTemplate(const char* name,
 void GenerateStructuresForType(const char* type, const char* tag)
 {
     size_t index;
+    char*  _tag;
 
     index = 0;
+    _tag = StringConcat("_", tag, NULL);
+
     while (struct_file_names[index])
     {
-        GenerateTemplate(struct_file_names[index], TYPE, type, TAG, tag);
+        GenerateTemplate(struct_file_names[index], TYPE, type, _tag, tag);
         index ++;
     }
+
+    free(_tag);
 }
