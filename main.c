@@ -2,6 +2,8 @@
 #include "input_interface.h"
 #include "output_interface.h"
 #include "template_interface.h"
+#include "pair_STR_STR_interface.h"
+#include "pair_STR_STR.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -48,18 +50,14 @@ void printstr(char* str)
 //variadic replace
 int main()
 {
-    // GenerateStructuresForType("void*", "PTR");
-    // GenerateStructuresForType("char*", "STR");
-    // GenerateStructuresForType("XYPE", "X");
-    GenerateTemplate("table_T_X.h", "TYPE", "char*", "T", "STR");
-    GenerateTemplate("table_STR_X.h", "XYPE", "char*", "X", "STR");
-    //
-    // char* str = ReadFileName("text_file.txt");
-    // VectorCHARPTR* vector = StringSplit(str, "\n");
-    // VectorSortCHARPTR(vector, strcmp);
-    // VectorMapCHARPTR(vector, printstr);
-    // // printf("%s\n", VectorBackCHARPTR(vector));
-    // VectorDestroyAllCHARPTR(vector, (void (*)(char*))free);
-    // free(str);
+    const char* tags[] = {"T", "X"};
+    const char* new_tags[] = {"INT", "INT"};
+    const char* types[] = {"TYPE", "XYPE"};
+    const char* new_types[] = {"int", "int"};
+
+    GenerateTemplate("pair_T_X.h", 2, 
+    tags, new_tags, 
+    types, new_types);
+
 
 }

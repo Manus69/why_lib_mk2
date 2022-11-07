@@ -31,3 +31,13 @@ void Map(void (*f)(void*), void* ptr, ...)
     _map(f, ptr, &args);
     va_end(args);
 }
+
+void MapRegion(void* ptr, size_t n_items, size_t item_size, void (*f)(void*))
+{
+    while (n_items)
+    {
+        f(ptr);
+        ptr += item_size;
+        n_items --;
+    }
+}
