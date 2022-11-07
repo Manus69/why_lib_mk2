@@ -50,14 +50,15 @@ void printstr(char* str)
 //variadic replace
 int main()
 {
-    const char* tags[] = {"T", "X"};
-    const char* new_tags[] = {"INT", "INT"};
-    const char* types[] = {"TYPE", "XYPE"};
-    const char* new_types[] = {"int", "int"};
+    // const char* tags[] = {"T", "X"};
+    // const char* new_tags[] = {"INT", "INT"};
+    // const char* types[] = {"TYPE", "XYPE"};
+    // const char* new_types[] = {"int", "int"};
 
-    GenerateTemplate("pair_T_X.h", 2, 
-    tags, new_tags, 
-    types, new_types);
+    // GenerateTemplate("pair_T_X.h", 2, 
+    // tags, new_tags, 
+    // types, new_types);
 
-
+    // GenerateSort("STR", "char*");
+    GenerateArray("ASTR", "Array_STR");
 }

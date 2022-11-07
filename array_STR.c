@@ -1,6 +1,6 @@
 #include "array_STR.h"
 #include "array_STR_interface.h"
-#include "sort_merge_STR_interface.h"
+#include "sort_merge_STR.h"
 #include "macros.h"
 
 #include <stdlib.h>

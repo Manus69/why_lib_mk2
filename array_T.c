@@ -1,6 +1,6 @@
 #include "array_T.h"
 #include "array_T_interface.h"
-#include "sort_merge_T_interface.h"
+#include "sort_merge_T.h"
 #include "macros.h"
 
 #include <stdlib.h>

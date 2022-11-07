@@ -149,10 +149,10 @@ char* VectorFold_STR(const Vector_STR* vector, char* (*f)(char*, char*), char* i
     return ArrayFold_STR(vector->array, vector->index, vector->length, f, initial_value);
 }
 
-void VectorSort_STR(Vector_STR* vector, int (*cmp)(const char*, const char*))
-{
-    return ArraySortSlice_STR(vector->array, vector->index, vector->length, cmp);
-}
+// void VectorSort_STR(Vector_STR* vector, int (*cmp)(const char*, const char*))
+// {
+//     return ArraySortSlice_STR(vector->array, vector->index, vector->length, cmp);
+// }
 
 size_t VectorFindIndex_STR(const Vector_STR* vector, char* value, int (*cmp)(const char*, const char*))
 {
