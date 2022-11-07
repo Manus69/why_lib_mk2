@@ -131,7 +131,30 @@ void GenerateSort(const char* tag, const char* type)
 
 void GenerateArray(const char* tag, const char* type)
 {
+    GenerateSort(tag, type);
+
     TEMPLATE(ARRAY_SRC, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(ARRAY_HEADER, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(ARRAY_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
+}
+
+void GenerateVector(const char* tag, const char* type)
+{
+    GenerateArray(tag, type);
+
+    TEMPLATE(VECTOR_SRC, 1, {TAG}, {tag}, {TYPE}, {type});
+    TEMPLATE(VECTOR_HEADER, 1, {TAG}, {tag}, {TYPE}, {type});
+    TEMPLATE(VECTOR_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
+}
+
+void GeneratePair(const char* lhs_tag, const char* lhs_type,
+                const char* rhs_tag, const char* rhs_type)
+{
+    GenerateTemplate(PAIR_SRC, 2,
+                    (const char*[]){TAG, XAG}, (const char*[]){lhs_tag, rhs_tag},
+                    (const char*[]){TYPE, XYPE}, (const char*[]){lhs_type, rhs_type});
+    
+    GenerateTemplate(PAIR_HEADER, 2,
+                    (const char*[]){TAG, XAG}, (const char*[]){lhs_tag, rhs_tag},
+                    (const char*[]){TYPE, XYPE}, (const char*[]){lhs_type, rhs_type});
 }
