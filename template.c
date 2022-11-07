@@ -68,6 +68,11 @@ static char* _get_file_name(const char* file_name, size_t n_tags,
     return new_name;
 }
 
+static void _debug(const char** str)
+{
+    printf("%s\n", *str);
+}
+
 static char* _replace(const char* content, size_t n_types,
                     const char* old_tags[], const char* new_tags[],
                     const char* old_types[], const char* new_types[])
@@ -82,6 +87,8 @@ static char* _replace(const char* content, size_t n_types,
     old_tag_strings = _process_tags(n_types, old_tags);
     new_tag_strings = _process_tags(n_types, new_tags);
 
+    // MapRegion(old_tag_strings, n_types, sizeof(char*), (void (*)(void*))_debug);
+
     current = strdup(content);
     for (size_t k = 0; k < n_types; k ++)
     {
@@ -91,8 +98,8 @@ static char* _replace(const char* content, size_t n_types,
         free(store);
     }
 
-    MapRegion(*old_tag_strings, n_types, sizeof(char*), free);
-    MapRegion(*new_tag_strings, n_types, sizeof(char*), free);
+    MapRegion(old_tag_strings, n_types, sizeof(char*), (void (*)(void*))FreePtr);
+    MapRegion(new_tag_strings, n_types, sizeof(char*), (void (*)(void*))FreePtr);
     Free(old_tag_strings, new_tag_strings, NULL);
 
     return current;
@@ -147,8 +154,13 @@ void GenerateVector(const char* tag, const char* type)
     TEMPLATE(VECTOR_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
 }
 
+void GenerateStructures(const char* tag, const char* type)
+{
+    GenerateVector(tag, type);
+}
+
 void GeneratePair(const char* lhs_tag, const char* lhs_type,
-                const char* rhs_tag, const char* rhs_type)
+                    const char* rhs_tag, const char* rhs_type)
 {
     GenerateTemplate(PAIR_SRC, 2,
                     (const char*[]){TAG, XAG}, (const char*[]){lhs_tag, rhs_tag},

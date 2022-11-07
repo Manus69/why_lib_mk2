@@ -47,18 +47,14 @@ void printstr(char* str)
 //list, set, table, avl
 //unique, filter
 //rational, natural
-//variadic replace
+//generic print
+
 int main()
 {
-    // const char* tags[] = {"T", "X"};
-    // const char* new_tags[] = {"INT", "INT"};
-    // const char* types[] = {"TYPE", "XYPE"};
-    // const char* new_types[] = {"int", "int"};
+    // GenerateStructures("STR", "char*");
+    // GenerateStructures("PTR", "void*");
 
-    // GenerateTemplate("pair_T_X.h", 2, 
-    // tags, new_tags, 
-    // types, new_types);
-
-    // GenerateSort("STR", "char*");
-    GenerateArray("ASTR", "Array_STR");
+    GeneratePair("STR", "char*", "ARRAY_STR", "Array_STR");
+    // char* a[] = {"ass", "dick"};
+    // printf("%s %s\n", a[0], a[1]);
 }

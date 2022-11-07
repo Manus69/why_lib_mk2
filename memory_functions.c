@@ -41,3 +41,8 @@ void MapRegion(void* ptr, size_t n_items, size_t item_size, void (*f)(void*))
         n_items --;
     }
 }
+
+void FreePtr(void** ptr)
+{
+    free(*ptr);
+}
