@@ -51,3 +51,8 @@ void AVLNodeSwap_T_X(AVLNode_T_X* lhs, AVLNode_T_X* rhs)
 {
     
 }
+
+void AVLNodeMap_T_X(AVLNode_T_X* node, void (*f)(XYPE))
+{
+    
+}
