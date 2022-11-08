@@ -29,17 +29,17 @@ Vector_T* VectorCreate_T()
 
 void VectorDestroy_T(Vector_T* vector)
 {
-    if (vector)
-    {
-        free(vector);
-    }
+    free(vector);
 }
 
 void VectorDestroyAll_T(Vector_T* vector, void (*f)(TYPE))
 {
-    if (f) VectorMap_T(vector, f);
-    ArrayDestroyAll_T(vector->array, NULL);
-    free(vector);
+    if (vector)
+    {
+        if (f) VectorMap_T(vector, f);
+        ArrayDestroyAll_T(vector->array, NULL);
+        free(vector);
+    }
 }
 
 void VectorDestroyElements_T(Vector_T* vector, void (*f)(TYPE))

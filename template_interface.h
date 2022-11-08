@@ -6,6 +6,8 @@
 typedef int TYPE;
 typedef int XYPE;
 
+typedef struct Vector_X Vector_X;
+
 void GenerateTemplate(const char* file_name, size_t n_types, 
                     const char* old_tags[], const char* new_tags[],
                     const char* old_types[], const char* new_types[]);

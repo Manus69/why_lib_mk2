@@ -29,17 +29,17 @@ Vector_STR* VectorCreate_STR()
 
 void VectorDestroy_STR(Vector_STR* vector)
 {
-    if (vector)
-    {
-        free(vector);
-    }
+    free(vector);
 }
 
 void VectorDestroyAll_STR(Vector_STR* vector, void (*f)(char*))
 {
-    if (f) VectorMap_STR(vector, f);
-    ArrayDestroyAll_STR(vector->array, NULL);
-    free(vector);
+    if (vector)
+    {
+        if (f) VectorMap_STR(vector, f);
+        ArrayDestroyAll_STR(vector->array, NULL);
+        free(vector);
+    }
 }
 
 void VectorDestroyElements_STR(Vector_STR* vector, void (*f)(char*))

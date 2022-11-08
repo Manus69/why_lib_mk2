@@ -1,7 +1,7 @@
 #ifndef SORT_MERGE_PTR_INTERFACE_H
 #define SORT_MERGE_PTR_INTERFACE_H
 
-#include "why.h"
+#include "template_interface.h"
 
 #include <stdlib.h>
 

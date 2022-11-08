@@ -49,12 +49,24 @@ void printstr(char* str)
 //rational, natural
 //generic print
 
+#include "array_VX_interface.h"
+#include "vector_X_interface.h"
+
+void _destroy(Vector_X* v)
+{
+    VectorDestroyAll_X(v, NULL);
+}
+
 int main()
 {
     // GenerateStructures("STR", "char*");
     // GenerateStructures("PTR", "void*");
+    // GenerateStructures("X", "XYPE");
+    // GenerateArray("VX", "Vector_X*");
 
-    GeneratePair("STR", "char*", "ARRAY_STR", "Array_STR");
-    // char* a[] = {"ass", "dick"};
-    // printf("%s %s\n", a[0], a[1]);
+    Array_VX* array = ArrayCreateZero_VX(10);
+    ArraySet_VX(array, 1, VectorCreate_X());
+    VectorPushBack_X(ArrayGet_VX(array, 1), 666);
+    printf("%d\n", VectorBack_X(ArrayGet_VX(array, 1)));
+    ArrayDestroyAll_VX(array, _destroy);
 }

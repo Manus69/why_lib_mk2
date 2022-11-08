@@ -29,17 +29,17 @@ Vector_PTR* VectorCreate_PTR()
 
 void VectorDestroy_PTR(Vector_PTR* vector)
 {
-    if (vector)
-    {
-        free(vector);
-    }
+    free(vector);
 }
 
 void VectorDestroyAll_PTR(Vector_PTR* vector, void (*f)(void*))
 {
-    if (f) VectorMap_PTR(vector, f);
-    ArrayDestroyAll_PTR(vector->array, NULL);
-    free(vector);
+    if (vector)
+    {
+        if (f) VectorMap_PTR(vector, f);
+        ArrayDestroyAll_PTR(vector->array, NULL);
+        free(vector);
+    }
 }
 
 void VectorDestroyElements_PTR(Vector_PTR* vector, void (*f)(void*))

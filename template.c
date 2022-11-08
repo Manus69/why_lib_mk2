@@ -68,11 +68,6 @@ static char* _get_file_name(const char* file_name, size_t n_tags,
     return new_name;
 }
 
-static void _debug(const char** str)
-{
-    printf("%s\n", *str);
-}
-
 static char* _replace(const char* content, size_t n_types,
                     const char* old_tags[], const char* new_tags[],
                     const char* old_types[], const char* new_types[])
