@@ -17,5 +17,6 @@ void GenerateStructures(const char* tag, const char* type);
 void GeneratePair(const char* lhs_tag, const char* lhs_type,
                     const char* rhs_tag, const char* rhs_type);
 void RegisterTypedef(const char* type, const char* def);
+void RegisterStruct(const char* name);
 
 #endif

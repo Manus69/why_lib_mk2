@@ -158,13 +158,25 @@ void GenerateStructures(const char* tag, const char* type)
 
 void GenerateHashTable(const char* tag, const char* type)
 {
+    char* vector_type;
+    char* vector_tag;
+    char* array_tag;
+
+    vector_type = StringConcat("Vector_", tag, "*", NULL); 
+    vector_tag = StringConcat("V", tag, NULL);
+    array_tag = StringConcat("V", tag, NULL);
+
     GenerateVector(tag, type);
-    GenerateArray(StringConcat("V", tag, NULL), StringConcat("Vector_", type, "*", NULL));
-    
+    GenerateArray(array_tag, vector_type);
+
     TEMPLATE(HASH_SRC, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(HASH_HEADER, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(HASH_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
 
+    RegisterStruct(vector_tag);
+    RegisterStruct(array_tag);
+
+    Free(vector_tag, vector_type, array_tag, NULL);
 }
 
 void GeneratePair(const char* lhs_tag, const char* lhs_type,
@@ -191,8 +203,16 @@ void RegisterTypedef(const char* type, const char* def)
     tail = StringConcat("typedef ", type, " ", def, ";\n\n#endif", NULL);
     result = StringReplace(content, "\n#endif", tail);
 
-    // DebugStr(result);
     WriteToFileName(TYPEDEF_HEADER, result, true);
 
     Free(content, tail, result, NULL);
+}
+
+void RegisterStruct(const char* name)
+{
+    char* _struct;
+
+    _struct = StringConcat("struct ", name, NULL);
+    RegisterTypedef(_struct, name);
+    free(_struct);
 }
