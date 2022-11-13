@@ -2,6 +2,7 @@
 #define VECTOR_STR_H
 
 #include "array_STR_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 

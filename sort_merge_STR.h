@@ -2,6 +2,7 @@
 #define SORT_MERGE_STR_INTERFACE_H
 
 #include "template_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 

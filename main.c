@@ -48,6 +48,8 @@ void printstr(char* str)
 //unique, filter
 //rational, natural
 //generic print
+//variadic destructors
+//format
 
 #include "array_VX_interface.h"
 #include "vector_X_interface.h"
@@ -62,11 +64,15 @@ int main()
     // GenerateStructures("STR", "char*");
     // GenerateStructures("PTR", "void*");
     // GenerateStructures("X", "XYPE");
-    // GenerateArray("VX", "Vector_X*");
+    // GenerateArray("VT", "Vector_T*");
+    // RegisterTypedef("struct Vector_T", "Vector_T");
 
-    Array_VX* array = ArrayCreateZero_VX(10);
-    ArraySet_VX(array, 1, VectorCreate_X());
-    VectorPushBack_X(ArrayGet_VX(array, 1), 666);
-    printf("%d\n", VectorBack_X(ArrayGet_VX(array, 1)));
-    ArrayDestroyAll_VX(array, _destroy);
+    RegisterTypedef("struct Array_VT", "Array_VT");
+
+    // printf("%d\n", strncmp("ass", "assdick", 6));
+    // Array_VX* array = ArrayCreateZero_VX(10);
+    // ArraySet_VX(array, 1, VectorCreate_X());
+    // VectorPushBack_X(ArrayGet_VX(array, 1), 666);
+    // printf("%d\n", VectorBack_X(ArrayGet_VX(array, 1)));
+    // ArrayDestroyAll_VX(array, _destroy);
 }

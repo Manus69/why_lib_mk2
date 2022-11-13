@@ -1,7 +1,8 @@
 #include "vector_STR.h"
 #include "vector_STR_interface.h"
 #include "macros.h"
-#include "why.h"
+
+#include <stdbool.h>
 
 #define DEFAULT_CAPACITY (1 << 10)
 
@@ -158,4 +159,23 @@ size_t VectorFindIndex_STR(const Vector_STR* vector, char* value, int (*cmp)(con
 {
     return ArrayFindIndex_STR(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
+}
+
+Vector_STR* VectorFilter_STR(const Vector_STR* vector, bool (*predicate)(const char*))
+{
+    Vector_STR* new_vector;
+    char* value;
+
+    new_vector = VectorCreate_STR();
+    CHECK_RETURN(new_vector, NULL, NULL);
+
+    for (size_t k = 0; k < vector->length; k ++)
+    {
+        value = VectorGet_STR(vector, k);
+
+        if (predicate(value))
+            VectorPushBack_STR(new_vector, value);
+    }
+
+    return new_vector;
 }

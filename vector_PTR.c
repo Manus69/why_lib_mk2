@@ -1,7 +1,8 @@
 #include "vector_PTR.h"
 #include "vector_PTR_interface.h"
 #include "macros.h"
-#include "why.h"
+
+#include <stdbool.h>
 
 #define DEFAULT_CAPACITY (1 << 10)
 
@@ -158,4 +159,23 @@ size_t VectorFindIndex_PTR(const Vector_PTR* vector, void* value, int (*cmp)(con
 {
     return ArrayFindIndex_PTR(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
+}
+
+Vector_PTR* VectorFilter_PTR(const Vector_PTR* vector, bool (*predicate)(const void*))
+{
+    Vector_PTR* new_vector;
+    void* value;
+
+    new_vector = VectorCreate_PTR();
+    CHECK_RETURN(new_vector, NULL, NULL);
+
+    for (size_t k = 0; k < vector->length; k ++)
+    {
+        value = VectorGet_PTR(vector, k);
+
+        if (predicate(value))
+            VectorPushBack_PTR(new_vector, value);
+    }
+
+    return new_vector;
 }

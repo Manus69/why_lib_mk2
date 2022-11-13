@@ -2,6 +2,9 @@
 #define VECTOR_PTR_INTERFACE_H
 
 #include "array_PTR_interface.h"
+#include "typedefs.h"
+
+#include <stdbool.h>
 
 typedef struct Vector_PTR Vector_PTR;
 
@@ -25,5 +28,6 @@ void VectorApply_PTR(Vector_PTR* vector, void (*f)(void**));
 void* VectorFold_PTR(const Vector_PTR* vector, void* (*f)(void*, void*), void* initial_value);
 void VectorSort_PTR(Vector_PTR* vector, int (*cmp)(const void*, const void*));
 size_t VectorFindIndex_PTR(const Vector_PTR* vector, void* value, int (*cmp)(const void*, const void*));
+Vector_PTR* VectorFilter_PTR(const Vector_PTR* vector, bool (*predicate)(const void*));
 
 #endif

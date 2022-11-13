@@ -2,6 +2,7 @@
 #define ARRAY_STR_H
 
 #include "template_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 

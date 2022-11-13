@@ -7,22 +7,22 @@
 #include <stdbool.h>
 #include <string.h>
 
-static void _merge(void** target,
-                void** lhs,
-                void** rhs,
+static void _merge(Vector_T** target,
+                Vector_T** lhs,
+                Vector_T** rhs,
                 size_t lhs_length, 
                 size_t rhs_length, 
-                int (*cmp)(const void*, const void*))
+                int (*cmp)(const Vector_T*, const Vector_T*))
 {
     while (true)
     {
         if (lhs_length == 0)
         {
-            return (void)memcpy(target, rhs, rhs_length * sizeof(void*));
+            return (void)memcpy(target, rhs, rhs_length * sizeof(Vector_T*));
         }
         if (rhs_length == 0)
         {
-            return (void)memcpy(target, lhs, lhs_length * sizeof(void*));
+            return (void)memcpy(target, lhs, lhs_length * sizeof(Vector_T*));
         }
 
         if (cmp(*lhs, *rhs) > 0)
@@ -47,14 +47,14 @@ static size_t _get_length(size_t length, size_t frame_size)
     return length >= frame_size ? frame_size : length;
 }
 
-static void _pass(void** source, 
-                void** target, 
+static void _pass(Vector_T** source, 
+                Vector_T** target, 
                 size_t frame_size, 
                 size_t length, 
-                int (*cmp)(const void*, const void*))
+                int (*cmp)(const Vector_T*, const Vector_T*))
 {
-    void**   rhs;
-    void**   lhs;
+    Vector_T**   rhs;
+    Vector_T**   lhs;
     size_t  lhs_length;
     size_t  rhs_length;
     size_t  remaining;
@@ -78,14 +78,14 @@ static void _pass(void** source,
     
 }
 
-void MergeSort_PTR(void** data, size_t index, size_t length, int (*cmp)(const void*, const void*))
+void MergeSort_VT(Vector_T** data, size_t index, size_t length, int (*cmp)(const Vector_T*, const Vector_T*))
 {
-    void**   buffer;
+    Vector_T**   buffer;
     size_t  count;
     size_t  n_iterations;
     size_t  frame_size;
 
-    buffer = malloc(sizeof(void*) * length);
+    buffer = malloc(sizeof(Vector_T*) * length);
     CHECK_RETURN(buffer, NULL, (void)0);
 
     n_iterations = log2(length);
@@ -109,7 +109,7 @@ void MergeSort_PTR(void** data, size_t index, size_t length, int (*cmp)(const vo
     }
 
     if (n_iterations % 2)
-        memcpy(data + index, buffer, sizeof(void*) * length);
+        memcpy(data + index, buffer, sizeof(Vector_T*) * length);
 
     free(buffer);
 }

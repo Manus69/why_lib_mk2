@@ -1,7 +1,8 @@
 #include "vector_X.h"
 #include "vector_X_interface.h"
 #include "macros.h"
-#include "why.h"
+
+#include <stdbool.h>
 
 #define DEFAULT_CAPACITY (1 << 10)
 
@@ -158,4 +159,23 @@ size_t VectorFindIndex_X(const Vector_X* vector, XYPE value, int (*cmp)(const XY
 {
     return ArrayFindIndex_X(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
+}
+
+Vector_X* VectorFilter_X(const Vector_X* vector, bool (*predicate)(const XYPE))
+{
+    Vector_X* new_vector;
+    XYPE value;
+
+    new_vector = VectorCreate_X();
+    CHECK_RETURN(new_vector, NULL, NULL);
+
+    for (size_t k = 0; k < vector->length; k ++)
+    {
+        value = VectorGet_X(vector, k);
+
+        if (predicate(value))
+            VectorPushBack_X(new_vector, value);
+    }
+
+    return new_vector;
 }

@@ -6,6 +6,7 @@
 #include "memory_functions.h"
 #include "pair_STR_STR_interface.h"
 #include "macros.h"
+#include "debug_functions.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -28,6 +29,8 @@
 
 #define PAIR_SRC "pair_T_X.c"
 #define PAIR_HEADER "pair_T_X.h"
+
+#define TYPEDEF_HEADER "typedefs.h"
 
 #define TEMPLATE(file, N, old_tags, new_tags, old_types, new_types)\
 GenerateTemplate(file, N,\
@@ -82,8 +85,6 @@ static char* _replace(const char* content, size_t n_types,
     old_tag_strings = _process_tags(n_types, old_tags);
     new_tag_strings = _process_tags(n_types, new_tags);
 
-    // MapRegion(old_tag_strings, n_types, sizeof(char*), (void (*)(void*))_debug);
-
     current = strdup(content);
     for (size_t k = 0; k < n_types; k ++)
     {
@@ -114,12 +115,9 @@ void GenerateTemplate(const char* file_name, size_t n_types,
     new_content = _replace(content, n_types, old_tags, new_tags, old_types, new_types);
     if (new_content == NULL) RETURN_AFTER(free(content), (void)0);
 
-    // printf("%s\n", new_content);
-
     new_name = _get_file_name(file_name, n_types, old_tags, new_tags);
     if (new_name == NULL) RETURN_AFTER(Free(content, new_content, NULL), (void)0);
 
-    // printf("%s\n", new_name);
     WriteToFileName(new_name, new_content, true);
 
     Free(content, new_content, new_name, NULL);
@@ -164,4 +162,22 @@ void GeneratePair(const char* lhs_tag, const char* lhs_type,
     GenerateTemplate(PAIR_HEADER, 2,
                     (const char*[]){TAG, XAG}, (const char*[]){lhs_tag, rhs_tag},
                     (const char*[]){TYPE, XYPE}, (const char*[]){lhs_type, rhs_type});
+}
+
+void RegisterTypedef(const char* type, const char* def)
+{
+    char* content;
+    char* tail;
+    char* result;
+
+    content = ReadFileName(TYPEDEF_HEADER);
+    CHECK_RETURN(content, NULL, (void)0);
+
+    tail = StringConcat("typedef ", type, " ", def, ";\n\n#endif", NULL);
+    result = StringReplace(content, "\n#endif", tail);
+
+    // DebugStr(result);
+    WriteToFileName(TYPEDEF_HEADER, result, true);
+
+    Free(content, tail, result, NULL);
 }

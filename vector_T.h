@@ -2,6 +2,7 @@
 #define VECTOR_T_H
 
 #include "array_T_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 

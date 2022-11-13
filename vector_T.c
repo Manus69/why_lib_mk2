@@ -1,7 +1,8 @@
 #include "vector_T.h"
 #include "vector_T_interface.h"
 #include "macros.h"
-#include "why.h"
+
+#include <stdbool.h>
 
 #define DEFAULT_CAPACITY (1 << 10)
 
@@ -158,4 +159,28 @@ size_t VectorFindIndex_T(const Vector_T* vector, TYPE value, int (*cmp)(const TY
 {
     return ArrayFindIndex_T(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
+}
+
+TYPE* VectorFind_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE))
+{
+    return ArrayFind_T(vector->array, value, vector->index, vector->length, cmp);
+}
+
+Vector_T* VectorFilter_T(const Vector_T* vector, bool (*predicate)(const TYPE))
+{
+    Vector_T* new_vector;
+    TYPE value;
+
+    new_vector = VectorCreate_T();
+    CHECK_RETURN(new_vector, NULL, NULL);
+
+    for (size_t k = 0; k < vector->length; k ++)
+    {
+        value = VectorGet_T(vector, k);
+
+        if (predicate(value))
+            VectorPushBack_T(new_vector, value);
+    }
+
+    return new_vector;
 }

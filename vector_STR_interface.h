@@ -2,6 +2,9 @@
 #define VECTOR_STR_INTERFACE_H
 
 #include "array_STR_interface.h"
+#include "typedefs.h"
+
+#include <stdbool.h>
 
 typedef struct Vector_STR Vector_STR;
 
@@ -25,5 +28,6 @@ void VectorApply_STR(Vector_STR* vector, void (*f)(char**));
 char* VectorFold_STR(const Vector_STR* vector, char* (*f)(char*, char*), char* initial_value);
 void VectorSort_STR(Vector_STR* vector, int (*cmp)(const char*, const char*));
 size_t VectorFindIndex_STR(const Vector_STR* vector, char* value, int (*cmp)(const char*, const char*));
+Vector_STR* VectorFilter_STR(const Vector_STR* vector, bool (*predicate)(const char*));
 
 #endif

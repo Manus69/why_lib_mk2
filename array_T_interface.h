@@ -2,6 +2,7 @@
 #define ARRAY_T_INTERFACE_H
 
 #include "template_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 
@@ -26,6 +27,8 @@ void ArraySortSlice_T(Array_T* array, size_t index,
                 size_t length, int (*cmp)(const TYPE, const TYPE));
 void ArraySort_T(Array_T* array, int (*cmp)(const TYPE, const TYPE));
 size_t ArrayFindIndex_T(const Array_T* array, TYPE value,
+                size_t index, size_t length, int (*cmp)(const TYPE, const TYPE));
+TYPE* ArrayFind_T(const Array_T* array, TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE));
 
 #endif

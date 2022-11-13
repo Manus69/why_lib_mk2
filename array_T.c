@@ -146,3 +146,14 @@ size_t ArrayFindIndex_T(const Array_T* array, TYPE value,
 
     return -1;
 }
+
+TYPE* ArrayFind_T(const Array_T* array, TYPE value,
+                size_t index, size_t length, int (*cmp)(const TYPE, const TYPE))
+{
+    size_t _index;
+
+    _index = ArrayFindIndex_T(array, value, index, length, cmp);
+    CHECK_RETURN(_index, (size_t)-1, NULL);
+
+    return &array->data[_index];
+}

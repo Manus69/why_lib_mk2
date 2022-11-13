@@ -2,6 +2,7 @@
 #define VECTOR_PTR_H
 
 #include "array_PTR_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 

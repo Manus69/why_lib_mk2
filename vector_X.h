@@ -2,6 +2,7 @@
 #define VECTOR_X_H
 
 #include "array_X_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 

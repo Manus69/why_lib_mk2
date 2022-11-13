@@ -1,14 +1,14 @@
-#ifndef ARRAY_PTR_H
-#define ARRAY_PTR_H
+#ifndef ARRAY_VT_H
+#define ARRAY_VT_H
 
 #include "template_interface.h"
 #include "typedefs.h"
 
 #include <stdlib.h>
 
-struct Array_PTR
+struct Array_VT
 {
-    void**   data;
+    Vector_T**   data;
     size_t  length;
 };
 

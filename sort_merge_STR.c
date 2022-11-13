@@ -1,5 +1,6 @@
 #include "template_interface.h"
 #include "macros.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 #include <math.h>

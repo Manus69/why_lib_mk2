@@ -107,3 +107,10 @@ char* StringConcat(const char* str, ...)
 
     return current;
 }
+
+bool StringStartsWith(const char* str, const char* start)
+{
+    CHECK_CONDITION_RETURN(!str || !start, false);
+
+    return strncmp(str, start, strlen(start)) == 0;
+}

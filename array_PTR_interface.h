@@ -2,6 +2,7 @@
 #define ARRAY_PTR_INTERFACE_H
 
 #include "template_interface.h"
+#include "typedefs.h"
 
 #include <stdlib.h>
 
