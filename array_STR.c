@@ -100,6 +100,8 @@ int ArrayExpandLeft_STR(Array_STR* array, size_t extra_items)
 
 void ArrayMap_STR(const Array_STR* array, size_t index, size_t length, void (*f)(char*))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(array->data[k]);
 }
@@ -135,7 +137,7 @@ void ArraySort_STR(Array_STR* array, int (*cmp)(const char*, const char*))
     return MergeSort_STR(array->data, 0, array->length, cmp);
 }
 
-size_t ArrayFindIndex_STR(const Array_STR* array, char* value,
+size_t ArrayFindIndex_STR(const Array_STR* array, const char* value,
                 size_t index, size_t length, int (*cmp)(const char*, const char*))
 {
     while (index < length)
@@ -147,7 +149,7 @@ size_t ArrayFindIndex_STR(const Array_STR* array, char* value,
     return -1;
 }
 
-char** ArrayFind_STR(const Array_STR* array, char* value,
+char** ArrayFind_STR(const Array_STR* array, const char* value,
                 size_t index, size_t length, int (*cmp)(const char*, const char*))
 {
     size_t _index;

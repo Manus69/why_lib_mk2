@@ -137,6 +137,8 @@ TYPE VectorBack_T(const Vector_T* vector)
 
 void VectorMap_T(const Vector_T* vector, void (*f)(TYPE))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayMap_T(vector->array, vector->index, vector->length, f);
 }
 
@@ -155,13 +157,13 @@ void VectorSort_T(Vector_T* vector, int (*cmp)(const TYPE, const TYPE))
     return ArraySortSlice_T(vector->array, vector->index, vector->length, cmp);
 }
 
-size_t VectorFindIndex_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE))
+size_t VectorFindIndex_T(const Vector_T* vector, const TYPE value, int (*cmp)(const TYPE, const TYPE))
 {
     return ArrayFindIndex_T(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
 }
 
-TYPE* VectorFind_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE))
+TYPE* VectorFind_T(const Vector_T* vector, const TYPE value, int (*cmp)(const TYPE, const TYPE))
 {
     return ArrayFind_T(vector->array, value, vector->index, vector->length, cmp);
 }

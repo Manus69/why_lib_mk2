@@ -29,7 +29,7 @@
 
 #define HASH_SRC "hash_table_T.c"
 #define HASH_HEADER "hash_table_T.h"
-#define HASH_INTERFACE "hash_table_interface_T.h"
+#define HASH_INTERFACE "hash_table_T_interface.h"
 
 #define PAIR_SRC "pair_T_X.c"
 #define PAIR_HEADER "pair_T_X.h"
@@ -135,20 +135,33 @@ void GenerateSort(const char* tag, const char* type)
 
 void GenerateArray(const char* tag, const char* type)
 {
+    char* name;
+
     GenerateSort(tag, type);
 
     TEMPLATE(ARRAY_SRC, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(ARRAY_HEADER, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(ARRAY_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
+
+    name = StringConcat("Array_", tag, NULL);
+
+    RegisterStruct(name);
+    free(name);
 }
 
 void GenerateVector(const char* tag, const char* type)
 {
+    char* name;
+
     GenerateArray(tag, type);
 
     TEMPLATE(VECTOR_SRC, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(VECTOR_HEADER, 1, {TAG}, {tag}, {TYPE}, {type});
     TEMPLATE(VECTOR_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
+
+    name = StringConcat("Vector_", tag, NULL);
+    RegisterStruct(name);
+    free(name);
 }
 
 void GenerateStructures(const char* tag, const char* type)
@@ -159,24 +172,25 @@ void GenerateStructures(const char* tag, const char* type)
 void GenerateHashTable(const char* tag, const char* type)
 {
     char* vector_type;
-    char* vector_tag;
     char* array_tag;
 
     vector_type = StringConcat("Vector_", tag, "*", NULL); 
-    vector_tag = StringConcat("V", tag, NULL);
     array_tag = StringConcat("V", tag, NULL);
 
     GenerateVector(tag, type);
     GenerateArray(array_tag, vector_type);
 
-    TEMPLATE(HASH_SRC, 1, {TAG}, {tag}, {TYPE}, {type});
-    TEMPLATE(HASH_HEADER, 1, {TAG}, {tag}, {TYPE}, {type});
+    GenerateTemplate(HASH_SRC, 2,
+                    (const char*[]){TAG, "VT"}, (const char*[]){tag, array_tag},
+                    (const char*[]){TYPE, TYPE}, (const char*[]){type, type});
+
+    GenerateTemplate(HASH_HEADER, 2,
+                    (const char*[]){TAG, "VT"}, (const char*[]){tag, array_tag},
+                    (const char*[]){TYPE, TYPE}, (const char*[]){type, type});
+    
     TEMPLATE(HASH_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
 
-    RegisterStruct(vector_tag);
-    RegisterStruct(array_tag);
-
-    Free(vector_tag, vector_type, array_tag, NULL);
+    Free(vector_type, array_tag, NULL);
 }
 
 void GeneratePair(const char* lhs_tag, const char* lhs_type,

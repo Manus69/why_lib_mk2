@@ -137,6 +137,8 @@ char* VectorBack_STR(const Vector_STR* vector)
 
 void VectorMap_STR(const Vector_STR* vector, void (*f)(char*))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayMap_STR(vector->array, vector->index, vector->length, f);
 }
 
@@ -155,13 +157,13 @@ void VectorSort_STR(Vector_STR* vector, int (*cmp)(const char*, const char*))
     return ArraySortSlice_STR(vector->array, vector->index, vector->length, cmp);
 }
 
-size_t VectorFindIndex_STR(const Vector_STR* vector, char* value, int (*cmp)(const char*, const char*))
+size_t VectorFindIndex_STR(const Vector_STR* vector, const char* value, int (*cmp)(const char*, const char*))
 {
     return ArrayFindIndex_STR(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
 }
 
-char** VectorFind_STR(const Vector_STR* vector, char* value, int (*cmp)(const char*, const char*))
+char** VectorFind_STR(const Vector_STR* vector, const char* value, int (*cmp)(const char*, const char*))
 {
     return ArrayFind_STR(vector->array, value, vector->index, vector->length, cmp);
 }

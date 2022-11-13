@@ -100,6 +100,8 @@ int ArrayExpandLeft_T(Array_T* array, size_t extra_items)
 
 void ArrayMap_T(const Array_T* array, size_t index, size_t length, void (*f)(TYPE))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(array->data[k]);
 }
@@ -135,7 +137,7 @@ void ArraySort_T(Array_T* array, int (*cmp)(const TYPE, const TYPE))
     return MergeSort_T(array->data, 0, array->length, cmp);
 }
 
-size_t ArrayFindIndex_T(const Array_T* array, TYPE value,
+size_t ArrayFindIndex_T(const Array_T* array, const TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE))
 {
     while (index < length)
@@ -147,7 +149,7 @@ size_t ArrayFindIndex_T(const Array_T* array, TYPE value,
     return -1;
 }
 
-TYPE* ArrayFind_T(const Array_T* array, TYPE value,
+TYPE* ArrayFind_T(const Array_T* array, const TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE))
 {
     size_t _index;

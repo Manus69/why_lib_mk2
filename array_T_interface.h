@@ -26,9 +26,9 @@ TYPE ArrayFold_T(const Array_T* array, size_t index, size_t length,
 void ArraySortSlice_T(Array_T* array, size_t index, 
                 size_t length, int (*cmp)(const TYPE, const TYPE));
 void ArraySort_T(Array_T* array, int (*cmp)(const TYPE, const TYPE));
-size_t ArrayFindIndex_T(const Array_T* array, TYPE value,
+size_t ArrayFindIndex_T(const Array_T* array, const TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE));
-TYPE* ArrayFind_T(const Array_T* array, TYPE value,
+TYPE* ArrayFind_T(const Array_T* array, const TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE));
 
 #endif

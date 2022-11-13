@@ -9,6 +9,7 @@ struct HashTable_T
 {
     Array_VT*   array;
     size_t      (*hash)(const TYPE);
+    size_t      n_items;
 };
 
 #endif

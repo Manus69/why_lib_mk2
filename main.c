@@ -4,6 +4,8 @@
 #include "template_interface.h"
 #include "pair_STR_STR_interface.h"
 #include "pair_STR_STR.h"
+#include "hash_table_STR_interface.h"
+#include "hash_functions.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -65,16 +67,25 @@ int main()
     // GenerateStructures("PTR", "void*");
     // GenerateStructures("X", "XYPE");
     // GenerateArray("VT", "Vector_T*");
-    // RegisterTypedef("struct Vector_T", "Vector_T");
 
-    // RegisterTypedef("struct Array_VT", "Array_VT");
+    // GenerateHashTable("STR", "char*");
 
-    GenerateHashTable("STR", "char*");
+    char* str = ReadFileName("text_file.txt");
+    Vector_STR* vector = StringSplit(str, "\n");
 
-    // printf("%d\n", strncmp("ass", "assdick", 6));
-    // Array_VX* array = ArrayCreateZero_VX(10);
-    // ArraySet_VX(array, 1, VectorCreate_X());
-    // VectorPushBack_X(ArrayGet_VX(array, 1), 666);
-    // printf("%d\n", VectorBack_X(ArrayGet_VX(array, 1)));
-    // ArrayDestroyAll_VX(array, _destroy);
+    VectorSort_STR(vector, strcmp);
+    // VectorMap_STR(vector, printstr);
+
+    HashTable_STR* table = HashTableCreate_STR(1000, HashRolling_STR);
+    for (size_t k = 0; k < VectorLength_STR(vector); k ++)
+    {
+        HashTableInsert_STR(table, VectorGet_STR(vector, k));
+    }
+
+    // HashTableMap_STR(table, printstr);
+
+    free(str);
+    VectorDestroyAll_STR(vector, (void (*)(char*))free);
+
+    // HashTableDestroy_STR(table);
 }

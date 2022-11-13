@@ -28,8 +28,8 @@ void VectorMap_T(const Vector_T* vector, void (*f)(TYPE));
 void VectorApply_T(Vector_T* vector, void (*f)(TYPE*));
 TYPE VectorFold_T(const Vector_T* vector, TYPE (*f)(TYPE, TYPE), TYPE initial_value);
 void VectorSort_T(Vector_T* vector, int (*cmp)(const TYPE, const TYPE));
-size_t VectorFindIndex_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE));
+size_t VectorFindIndex_T(const Vector_T* vector, const TYPE value, int (*cmp)(const TYPE, const TYPE));
+TYPE* VectorFind_T(const Vector_T* vector, const TYPE value, int (*cmp)(const TYPE, const TYPE));
 Vector_T* VectorFilter_T(const Vector_T* vector, bool (*predicate)(const TYPE));
-TYPE* VectorFind_T(const Vector_T* vector, TYPE value, int (*cmp)(const TYPE, const TYPE));
 
 #endif
