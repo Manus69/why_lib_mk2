@@ -2,6 +2,7 @@
 #define VECTOR_X_INTERFACE_H
 
 #include "array_X_interface.h"
+#include "template_interface.h"
 #include "typedefs.h"
 
 #include <stdbool.h>
@@ -29,5 +30,6 @@ XYPE VectorFold_X(const Vector_X* vector, XYPE (*f)(XYPE, XYPE), XYPE initial_va
 void VectorSort_X(Vector_X* vector, int (*cmp)(const XYPE, const XYPE));
 size_t VectorFindIndex_X(const Vector_X* vector, XYPE value, int (*cmp)(const XYPE, const XYPE));
 Vector_X* VectorFilter_X(const Vector_X* vector, bool (*predicate)(const XYPE));
+XYPE* VectorFind_X(const Vector_X* vector, XYPE value, int (*cmp)(const XYPE, const XYPE));
 
 #endif

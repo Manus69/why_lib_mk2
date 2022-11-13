@@ -146,3 +146,14 @@ size_t ArrayFindIndex_X(const Array_X* array, XYPE value,
 
     return -1;
 }
+
+XYPE* ArrayFind_X(const Array_X* array, XYPE value,
+                size_t index, size_t length, int (*cmp)(const XYPE, const XYPE))
+{
+    size_t _index;
+
+    _index = ArrayFindIndex_X(array, value, index, length, cmp);
+    CHECK_RETURN(_index, (size_t)-1, NULL);
+
+    return &array->data[_index];
+}

@@ -27,6 +27,10 @@
 #define VECTOR_HEADER "vector_T.h"
 #define VECTOR_INTERFACE "vector_T_interface.h"
 
+#define HASH_SRC "hash_table_T.c"
+#define HASH_HEADER "hash_table_T.h"
+#define HASH_INTERFACE "hash_table_interface_T.h"
+
 #define PAIR_SRC "pair_T_X.c"
 #define PAIR_HEADER "pair_T_X.h"
 
@@ -150,6 +154,17 @@ void GenerateVector(const char* tag, const char* type)
 void GenerateStructures(const char* tag, const char* type)
 {
     GenerateVector(tag, type);
+}
+
+void GenerateHashTable(const char* tag, const char* type)
+{
+    GenerateVector(tag, type);
+    GenerateArray(StringConcat("V", tag, NULL), StringConcat("Vector_", type, "*", NULL));
+    
+    TEMPLATE(HASH_SRC, 1, {TAG}, {tag}, {TYPE}, {type});
+    TEMPLATE(HASH_HEADER, 1, {TAG}, {tag}, {TYPE}, {type});
+    TEMPLATE(HASH_INTERFACE, 1, {TAG}, {tag}, {TYPE}, {type});
+
 }
 
 void GeneratePair(const char* lhs_tag, const char* lhs_type,

@@ -28,5 +28,7 @@ void ArraySortSlice_STR(Array_STR* array, size_t index,
 void ArraySort_STR(Array_STR* array, int (*cmp)(const char*, const char*));
 size_t ArrayFindIndex_STR(const Array_STR* array, char* value,
                 size_t index, size_t length, int (*cmp)(const char*, const char*));
+char** ArrayFind_STR(const Array_STR* array, char* value,
+                size_t index, size_t length, int (*cmp)(const char*, const char*));
 
 #endif

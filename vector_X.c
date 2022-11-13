@@ -161,6 +161,11 @@ size_t VectorFindIndex_X(const Vector_X* vector, XYPE value, int (*cmp)(const XY
                      + vector->index;
 }
 
+XYPE* VectorFind_X(const Vector_X* vector, XYPE value, int (*cmp)(const XYPE, const XYPE))
+{
+    return ArrayFind_X(vector->array, value, vector->index, vector->length, cmp);
+}
+
 Vector_X* VectorFilter_X(const Vector_X* vector, bool (*predicate)(const XYPE))
 {
     Vector_X* new_vector;

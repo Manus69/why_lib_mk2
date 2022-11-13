@@ -146,3 +146,14 @@ size_t ArrayFindIndex_PTR(const Array_PTR* array, void* value,
 
     return -1;
 }
+
+void** ArrayFind_PTR(const Array_PTR* array, void* value,
+                size_t index, size_t length, int (*cmp)(const void*, const void*))
+{
+    size_t _index;
+
+    _index = ArrayFindIndex_PTR(array, value, index, length, cmp);
+    CHECK_RETURN(_index, (size_t)-1, NULL);
+
+    return &array->data[_index];
+}

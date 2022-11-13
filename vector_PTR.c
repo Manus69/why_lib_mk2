@@ -161,6 +161,11 @@ size_t VectorFindIndex_PTR(const Vector_PTR* vector, void* value, int (*cmp)(con
                      + vector->index;
 }
 
+void** VectorFind_PTR(const Vector_PTR* vector, void* value, int (*cmp)(const void*, const void*))
+{
+    return ArrayFind_PTR(vector->array, value, vector->index, vector->length, cmp);
+}
+
 Vector_PTR* VectorFilter_PTR(const Vector_PTR* vector, bool (*predicate)(const void*))
 {
     Vector_PTR* new_vector;

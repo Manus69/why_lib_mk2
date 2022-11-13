@@ -161,6 +161,11 @@ size_t VectorFindIndex_STR(const Vector_STR* vector, char* value, int (*cmp)(con
                      + vector->index;
 }
 
+char** VectorFind_STR(const Vector_STR* vector, char* value, int (*cmp)(const char*, const char*))
+{
+    return ArrayFind_STR(vector->array, value, vector->index, vector->length, cmp);
+}
+
 Vector_STR* VectorFilter_STR(const Vector_STR* vector, bool (*predicate)(const char*))
 {
     Vector_STR* new_vector;

@@ -146,3 +146,14 @@ size_t ArrayFindIndex_STR(const Array_STR* array, char* value,
 
     return -1;
 }
+
+char** ArrayFind_STR(const Array_STR* array, char* value,
+                size_t index, size_t length, int (*cmp)(const char*, const char*))
+{
+    size_t _index;
+
+    _index = ArrayFindIndex_STR(array, value, index, length, cmp);
+    CHECK_RETURN(_index, (size_t)-1, NULL);
+
+    return &array->data[_index];
+}

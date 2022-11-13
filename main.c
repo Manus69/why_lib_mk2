@@ -67,7 +67,9 @@ int main()
     // GenerateArray("VT", "Vector_T*");
     // RegisterTypedef("struct Vector_T", "Vector_T");
 
-    RegisterTypedef("struct Array_VT", "Array_VT");
+    // RegisterTypedef("struct Array_VT", "Array_VT");
+
+    GenerateHashTable("STR", "char*");
 
     // printf("%d\n", strncmp("ass", "assdick", 6));
     // Array_VX* array = ArrayCreateZero_VX(10);
