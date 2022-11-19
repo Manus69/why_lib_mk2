@@ -76,7 +76,7 @@ int main()
     VectorSort_STR(vector, strcmp);
     // VectorMap_STR(vector, printstr);
 
-    HashTable_STR* table = HashTableCreate_STR(1, HashRolling_STR);
+    HashTable_STR* table = HashTableCreate_STR(100, HashRolling_STR);
     for (size_t k = 0; k < VectorLength_STR(vector); k ++)
     {
         HashTableInsert_STR(table, VectorGet_STR(vector, k));

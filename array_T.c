@@ -161,3 +161,8 @@ TYPE* ArrayFind_T(const Array_T* array, const TYPE value,
 
     return &array->data[_index];
 }
+
+TYPE* ArrayPoint_T(const Array_T* array, size_t index)
+{
+    return &array->data[index];
+}

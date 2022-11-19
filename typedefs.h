@@ -78,5 +78,11 @@ typedef struct Array_VSTR Array_VSTR;
 typedef struct Array_STR Array_STR;
 typedef struct Vector_STR Vector_STR;
 typedef struct Array_VSTR Array_VSTR;
+typedef struct Array_STR Array_STR;
+typedef struct Vector_STR Vector_STR;
+typedef struct Array_VSTR Array_VSTR;
+typedef struct Array_STR Array_STR;
+typedef struct Vector_STR Vector_STR;
+typedef struct Array_VSTR Array_VSTR;
 
 #endif

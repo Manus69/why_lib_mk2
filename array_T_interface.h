@@ -30,5 +30,6 @@ size_t ArrayFindIndex_T(const Array_T* array, const TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE));
 TYPE* ArrayFind_T(const Array_T* array, const TYPE value,
                 size_t index, size_t length, int (*cmp)(const TYPE, const TYPE));
+TYPE* ArrayPoint_T(const Array_T* array, size_t index);
 
 #endif
