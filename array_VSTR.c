@@ -108,6 +108,8 @@ void ArrayMap_VSTR(const Array_VSTR* array, size_t index, size_t length, void (*
 
 void ArrayApply_VSTR(Array_VSTR* array, size_t index, size_t length, void (*f)(Vector_STR**))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(&array->data[k]);
 }

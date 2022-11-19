@@ -108,6 +108,8 @@ void ArrayMap_T(const Array_T* array, size_t index, size_t length, void (*f)(TYP
 
 void ArrayApply_T(Array_T* array, size_t index, size_t length, void (*f)(TYPE*))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(&array->data[k]);
 }

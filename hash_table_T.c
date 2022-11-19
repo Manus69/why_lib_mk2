@@ -27,27 +27,28 @@ HashTable_T* HashTableCreate_T(size_t size, size_t (*hash)(const TYPE))
 void HashTableDestroyElements_T(HashTable_T* table, void (*f)(TYPE))
 {
     CHECK_RETURN(table, NULL, (void)0);
+    CHECK_RETURN(f, NULL, (void)0);
 
     for (size_t k = 0; k < ArrayLength_VT(table->array); k ++)
     {
-        VectorDestroyAll_T(ArrayGet_VT(table->array, k), f);
+        VectorDestroyElements_T(ArrayGet_VT(table->array, k), f);
     }
 }
 
 void HashTableDestroy_T(HashTable_T* table)
 {
     CHECK_RETURN(table, NULL, (void)0);
-    ArrayMap_VT(table->array, 0, ArrayLength_VT(table->array), (void (*)(Vector_T*))free);
-    free(table->array);
+
+    ArrayDestroyAll_VT(table->array, VectorDestroy_T);
     free(table);
 }
 
 void HashTableDestroyAll_T(HashTable_T* table, void (*f)(TYPE))
 {
+    CHECK_RETURN(table, NULL, (void)0);
+    
     HashTableDestroyElements_T(table, f);
-    ArrayDestroyData_VT(table->array);
-    free(table->array);
-    free(table);
+    HashTableDestroy_T(table);
 }
 
 size_t HashTableHash_T(const HashTable_T* table, const TYPE value)

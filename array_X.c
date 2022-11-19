@@ -100,12 +100,16 @@ int ArrayExpandLeft_X(Array_X* array, size_t extra_items)
 
 void ArrayMap_X(const Array_X* array, size_t index, size_t length, void (*f)(XYPE))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(array->data[k]);
 }
 
 void ArrayApply_X(Array_X* array, size_t index, size_t length, void (*f)(XYPE*))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(&array->data[k]);
 }
@@ -135,7 +139,7 @@ void ArraySort_X(Array_X* array, int (*cmp)(const XYPE, const XYPE))
     return MergeSort_X(array->data, 0, array->length, cmp);
 }
 
-size_t ArrayFindIndex_X(const Array_X* array, XYPE value,
+size_t ArrayFindIndex_X(const Array_X* array, const XYPE value,
                 size_t index, size_t length, int (*cmp)(const XYPE, const XYPE))
 {
     while (index < length)
@@ -147,7 +151,7 @@ size_t ArrayFindIndex_X(const Array_X* array, XYPE value,
     return -1;
 }
 
-XYPE* ArrayFind_X(const Array_X* array, XYPE value,
+XYPE* ArrayFind_X(const Array_X* array, const XYPE value,
                 size_t index, size_t length, int (*cmp)(const XYPE, const XYPE))
 {
     size_t _index;

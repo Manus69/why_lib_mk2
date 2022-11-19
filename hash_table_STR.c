@@ -27,27 +27,28 @@ HashTable_STR* HashTableCreate_STR(size_t size, size_t (*hash)(const char*))
 void HashTableDestroyElements_STR(HashTable_STR* table, void (*f)(char*))
 {
     CHECK_RETURN(table, NULL, (void)0);
+    CHECK_RETURN(f, NULL, (void)0);
 
     for (size_t k = 0; k < ArrayLength_VSTR(table->array); k ++)
     {
-        VectorDestroyAll_STR(ArrayGet_VSTR(table->array, k), f);
+        VectorDestroyElements_STR(ArrayGet_VSTR(table->array, k), f);
     }
 }
 
 void HashTableDestroy_STR(HashTable_STR* table)
 {
     CHECK_RETURN(table, NULL, (void)0);
-    ArrayMap_VSTR(table->array, 0, ArrayLength_VSTR(table->array), (void (*)(Vector_STR*))free);
-    free(table->array);
+
+    ArrayDestroyAll_VSTR(table->array, VectorDestroy_STR);
     free(table);
 }
 
 void HashTableDestroyAll_STR(HashTable_STR* table, void (*f)(char*))
 {
+    CHECK_RETURN(table, NULL, (void)0);
+    
     HashTableDestroyElements_STR(table, f);
-    ArrayDestroyData_VSTR(table->array);
-    free(table->array);
-    free(table);
+    HashTableDestroy_STR(table);
 }
 
 size_t HashTableHash_STR(const HashTable_STR* table, const char* value)

@@ -30,21 +30,25 @@ Vector_STR* VectorCreate_STR()
 
 void VectorDestroy_STR(Vector_STR* vector)
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    ArrayDestroyAll_STR(vector->array, NULL);
     free(vector);
 }
 
 void VectorDestroyAll_STR(Vector_STR* vector, void (*f)(char*))
 {
-    if (vector)
-    {
-        if (f) VectorMap_STR(vector, f);
-        ArrayDestroyAll_STR(vector->array, NULL);
-        free(vector);
-    }
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    if (f) VectorMap_STR(vector, f);
+    ArrayDestroyAll_STR(vector->array, NULL);
+    free(vector);
 }
 
 void VectorDestroyElements_STR(Vector_STR* vector, void (*f)(char*))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayDestroyElements_STR(vector->array, f);
 }
 
@@ -144,6 +148,8 @@ void VectorMap_STR(const Vector_STR* vector, void (*f)(char*))
 
 void VectorApply_STR(Vector_STR* vector, void (*f)(char**))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
     return ArrayApply_STR(vector->array, vector->index, vector->length, f);
 }
 

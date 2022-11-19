@@ -26,9 +26,9 @@ void* ArrayFold_PTR(const Array_PTR* array, size_t index, size_t length,
 void ArraySortSlice_PTR(Array_PTR* array, size_t index, 
                 size_t length, int (*cmp)(const void*, const void*));
 void ArraySort_PTR(Array_PTR* array, int (*cmp)(const void*, const void*));
-size_t ArrayFindIndex_PTR(const Array_PTR* array, void* value,
+size_t ArrayFindIndex_PTR(const Array_PTR* array, const void* value,
                 size_t index, size_t length, int (*cmp)(const void*, const void*));
-void** ArrayFind_PTR(const Array_PTR* array, void* value,
+void** ArrayFind_PTR(const Array_PTR* array, const void* value,
                 size_t index, size_t length, int (*cmp)(const void*, const void*));
 
 #endif

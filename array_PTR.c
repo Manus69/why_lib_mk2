@@ -100,12 +100,16 @@ int ArrayExpandLeft_PTR(Array_PTR* array, size_t extra_items)
 
 void ArrayMap_PTR(const Array_PTR* array, size_t index, size_t length, void (*f)(void*))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(array->data[k]);
 }
 
 void ArrayApply_PTR(Array_PTR* array, size_t index, size_t length, void (*f)(void**))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(&array->data[k]);
 }
@@ -135,7 +139,7 @@ void ArraySort_PTR(Array_PTR* array, int (*cmp)(const void*, const void*))
     return MergeSort_PTR(array->data, 0, array->length, cmp);
 }
 
-size_t ArrayFindIndex_PTR(const Array_PTR* array, void* value,
+size_t ArrayFindIndex_PTR(const Array_PTR* array, const void* value,
                 size_t index, size_t length, int (*cmp)(const void*, const void*))
 {
     while (index < length)
@@ -147,7 +151,7 @@ size_t ArrayFindIndex_PTR(const Array_PTR* array, void* value,
     return -1;
 }
 
-void** ArrayFind_PTR(const Array_PTR* array, void* value,
+void** ArrayFind_PTR(const Array_PTR* array, const void* value,
                 size_t index, size_t length, int (*cmp)(const void*, const void*))
 {
     size_t _index;

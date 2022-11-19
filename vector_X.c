@@ -30,21 +30,25 @@ Vector_X* VectorCreate_X()
 
 void VectorDestroy_X(Vector_X* vector)
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    ArrayDestroyAll_X(vector->array, NULL);
     free(vector);
 }
 
 void VectorDestroyAll_X(Vector_X* vector, void (*f)(XYPE))
 {
-    if (vector)
-    {
-        if (f) VectorMap_X(vector, f);
-        ArrayDestroyAll_X(vector->array, NULL);
-        free(vector);
-    }
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    if (f) VectorMap_X(vector, f);
+    ArrayDestroyAll_X(vector->array, NULL);
+    free(vector);
 }
 
 void VectorDestroyElements_X(Vector_X* vector, void (*f)(XYPE))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayDestroyElements_X(vector->array, f);
 }
 
@@ -137,11 +141,15 @@ XYPE VectorBack_X(const Vector_X* vector)
 
 void VectorMap_X(const Vector_X* vector, void (*f)(XYPE))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayMap_X(vector->array, vector->index, vector->length, f);
 }
 
 void VectorApply_X(Vector_X* vector, void (*f)(XYPE*))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
     return ArrayApply_X(vector->array, vector->index, vector->length, f);
 }
 
@@ -155,13 +163,13 @@ void VectorSort_X(Vector_X* vector, int (*cmp)(const XYPE, const XYPE))
     return ArraySortSlice_X(vector->array, vector->index, vector->length, cmp);
 }
 
-size_t VectorFindIndex_X(const Vector_X* vector, XYPE value, int (*cmp)(const XYPE, const XYPE))
+size_t VectorFindIndex_X(const Vector_X* vector, const XYPE value, int (*cmp)(const XYPE, const XYPE))
 {
     return ArrayFindIndex_X(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
 }
 
-XYPE* VectorFind_X(const Vector_X* vector, XYPE value, int (*cmp)(const XYPE, const XYPE))
+XYPE* VectorFind_X(const Vector_X* vector, const XYPE value, int (*cmp)(const XYPE, const XYPE))
 {
     return ArrayFind_X(vector->array, value, vector->index, vector->length, cmp);
 }

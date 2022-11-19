@@ -100,12 +100,16 @@ int ArrayExpandLeft_VT(Array_VT* array, size_t extra_items)
 
 void ArrayMap_VT(const Array_VT* array, size_t index, size_t length, void (*f)(Vector_T*))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(array->data[k]);
 }
 
 void ArrayApply_VT(Array_VT* array, size_t index, size_t length, void (*f)(Vector_T**))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(&array->data[k]);
 }
@@ -135,7 +139,7 @@ void ArraySort_VT(Array_VT* array, int (*cmp)(const Vector_T*, const Vector_T*))
     return MergeSort_VT(array->data, 0, array->length, cmp);
 }
 
-size_t ArrayFindIndex_VT(const Array_VT* array, Vector_T* value,
+size_t ArrayFindIndex_VT(const Array_VT* array, const Vector_T* value,
                 size_t index, size_t length, int (*cmp)(const Vector_T*, const Vector_T*))
 {
     while (index < length)
@@ -147,7 +151,7 @@ size_t ArrayFindIndex_VT(const Array_VT* array, Vector_T* value,
     return -1;
 }
 
-Vector_T** ArrayFind_VT(const Array_VT* array, Vector_T* value,
+Vector_T** ArrayFind_VT(const Array_VT* array, const Vector_T* value,
                 size_t index, size_t length, int (*cmp)(const Vector_T*, const Vector_T*))
 {
     size_t _index;

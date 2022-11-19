@@ -68,7 +68,7 @@ int main()
     // GenerateStructures("X", "XYPE");
     // GenerateArray("VT", "Vector_T*");
 
-    // GenerateHashTable("STR", "char*");
+    GenerateHashTable("STR", "char*");
 
     char* str = ReadFileName("text_file.txt");
     Vector_STR* vector = StringSplit(str, "\n");
@@ -76,7 +76,7 @@ int main()
     VectorSort_STR(vector, strcmp);
     // VectorMap_STR(vector, printstr);
 
-    HashTable_STR* table = HashTableCreate_STR(1000, HashRolling_STR);
+    HashTable_STR* table = HashTableCreate_STR(1, HashRolling_STR);
     for (size_t k = 0; k < VectorLength_STR(vector); k ++)
     {
         HashTableInsert_STR(table, VectorGet_STR(vector, k));
@@ -87,5 +87,7 @@ int main()
     free(str);
     VectorDestroyAll_STR(vector, (void (*)(char*))free);
 
+    HashTableDestroyAll_STR(table, NULL);
+    // // HashTableDestroyElements_STR(table, (void (*)(char*))free);
     // HashTableDestroy_STR(table);
 }

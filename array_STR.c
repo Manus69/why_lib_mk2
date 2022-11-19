@@ -108,6 +108,8 @@ void ArrayMap_STR(const Array_STR* array, size_t index, size_t length, void (*f)
 
 void ArrayApply_STR(Array_STR* array, size_t index, size_t length, void (*f)(char**))
 {
+    CHECK_RETURN(array, NULL, (void)0);
+    
     for (size_t k = index; k < length + index; k ++)
         f(&array->data[k]);
 }

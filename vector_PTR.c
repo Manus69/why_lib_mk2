@@ -30,21 +30,25 @@ Vector_PTR* VectorCreate_PTR()
 
 void VectorDestroy_PTR(Vector_PTR* vector)
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    ArrayDestroyAll_PTR(vector->array, NULL);
     free(vector);
 }
 
 void VectorDestroyAll_PTR(Vector_PTR* vector, void (*f)(void*))
 {
-    if (vector)
-    {
-        if (f) VectorMap_PTR(vector, f);
-        ArrayDestroyAll_PTR(vector->array, NULL);
-        free(vector);
-    }
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    if (f) VectorMap_PTR(vector, f);
+    ArrayDestroyAll_PTR(vector->array, NULL);
+    free(vector);
 }
 
 void VectorDestroyElements_PTR(Vector_PTR* vector, void (*f)(void*))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayDestroyElements_PTR(vector->array, f);
 }
 
@@ -137,11 +141,15 @@ void* VectorBack_PTR(const Vector_PTR* vector)
 
 void VectorMap_PTR(const Vector_PTR* vector, void (*f)(void*))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayMap_PTR(vector->array, vector->index, vector->length, f);
 }
 
 void VectorApply_PTR(Vector_PTR* vector, void (*f)(void**))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
     return ArrayApply_PTR(vector->array, vector->index, vector->length, f);
 }
 
@@ -155,13 +163,13 @@ void VectorSort_PTR(Vector_PTR* vector, int (*cmp)(const void*, const void*))
     return ArraySortSlice_PTR(vector->array, vector->index, vector->length, cmp);
 }
 
-size_t VectorFindIndex_PTR(const Vector_PTR* vector, void* value, int (*cmp)(const void*, const void*))
+size_t VectorFindIndex_PTR(const Vector_PTR* vector, const void* value, int (*cmp)(const void*, const void*))
 {
     return ArrayFindIndex_PTR(vector->array, value, vector->index, vector->length, cmp)
                      + vector->index;
 }
 
-void** VectorFind_PTR(const Vector_PTR* vector, void* value, int (*cmp)(const void*, const void*))
+void** VectorFind_PTR(const Vector_PTR* vector, const void* value, int (*cmp)(const void*, const void*))
 {
     return ArrayFind_PTR(vector->array, value, vector->index, vector->length, cmp);
 }

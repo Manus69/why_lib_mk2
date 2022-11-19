@@ -30,21 +30,25 @@ Vector_T* VectorCreate_T()
 
 void VectorDestroy_T(Vector_T* vector)
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    ArrayDestroyAll_T(vector->array, NULL);
     free(vector);
 }
 
 void VectorDestroyAll_T(Vector_T* vector, void (*f)(TYPE))
 {
-    if (vector)
-    {
-        if (f) VectorMap_T(vector, f);
-        ArrayDestroyAll_T(vector->array, NULL);
-        free(vector);
-    }
+    CHECK_RETURN(vector, NULL, (void)0);
+
+    if (f) VectorMap_T(vector, f);
+    ArrayDestroyAll_T(vector->array, NULL);
+    free(vector);
 }
 
 void VectorDestroyElements_T(Vector_T* vector, void (*f)(TYPE))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+    
     return ArrayDestroyElements_T(vector->array, f);
 }
 
@@ -144,6 +148,8 @@ void VectorMap_T(const Vector_T* vector, void (*f)(TYPE))
 
 void VectorApply_T(Vector_T* vector, void (*f)(TYPE*))
 {
+    CHECK_RETURN(vector, NULL, (void)0);
+
     return ArrayApply_T(vector->array, vector->index, vector->length, f);
 }
 
